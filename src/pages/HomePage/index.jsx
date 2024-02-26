@@ -63,12 +63,12 @@ export const HomePage = () => {
               : item
           )
         : [...prevCartList, { ...productToAdd, quantity: 1 }];
-  
+
       localStorage.setItem("cartList", JSON.stringify(newCartList));
       return newCartList;
     });
   };
-  
+
   const removeFromCart = (productId) => {
     setCartList((prevCartList) => {
       const newCartList = prevCartList.reduce((acc, item) => {
@@ -81,12 +81,11 @@ export const HomePage = () => {
           return [...acc, item];
         }
       }, []);
-  
+
       localStorage.setItem("cartList", JSON.stringify(newCartList));
       return newCartList;
     });
   };
-  
 
   const clearCart = () => {
     setCartList([]);
@@ -116,7 +115,7 @@ export const HomePage = () => {
         )}
       />
 
-      <main >
+      <main>
         {isLoading ? (
           <p>Carregando produtos...</p>
         ) : (

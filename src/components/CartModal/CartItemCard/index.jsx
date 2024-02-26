@@ -35,7 +35,6 @@ export const CartItemCard = ({
           >
             -
           </button>
-          {/* <span className={styles.quantitySpan}>{product.quantity}</span> */}
           <button
             onClick={() => onIncrement(product.id)}
             className={styles.quantityButton}

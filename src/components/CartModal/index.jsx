@@ -33,12 +33,12 @@ export const CartModal = ({
       const newCartList = prevCartList.map((item) =>
         item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
       );
-  
+
       localStorage.setItem("cartList", JSON.stringify(newCartList));
       return newCartList;
     });
   };
-  
+
   const onDecrement = (productId) => {
     setCartList((prevCartList) => {
       const newCartList = prevCartList.map((item) => {
@@ -49,12 +49,11 @@ export const CartModal = ({
         }
         return item;
       });
-  
+
       localStorage.setItem("cartList", JSON.stringify(newCartList));
       return newCartList;
     });
   };
-  
 
   return (
     <>
