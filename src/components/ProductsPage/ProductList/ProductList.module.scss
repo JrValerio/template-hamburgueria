@@ -1,0 +1,19 @@
+@import "../../../styles/globalstyles.scss";
+@import "../../../styles/typography.scss";
+
+.productList {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: auto;
+  gap: 20px;
+  padding: 20px;
+  max-width: 100%;
+
+  @media (min-width: 520px) {
+    max-width: 100rem;
+    margin-inline: auto;
+    flex-wrap: wrap;
+    overflow-x: visible;
+    flex-direction: row;
+  }
+}

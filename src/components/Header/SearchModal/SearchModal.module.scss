@@ -1,0 +1,61 @@
+@import "../../../styles/globalstyles.scss";
+@import "../../../styles/typography.scss";
+
+.searchModal {
+  height: 50rem;
+  flex-shrink: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+
+  .searchContent {
+    background-color: $grey-0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+
+    .searchHeader {
+      background-color: $color-primary;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem;
+      width: 20rem;
+
+      h2 {
+        font-size: $font-size-h3;
+        font-weight: $font-weight-bold;
+        margin: 0;
+      }
+
+      .closeButton {
+        color: $grey-0;
+      }
+    }
+
+    .searchInput {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+  }
+
+  @media (min-width: 520px) {
+    height: 100%;
+
+    .searchContent {
+      max-width: 35rem;
+    }
+  }
+}

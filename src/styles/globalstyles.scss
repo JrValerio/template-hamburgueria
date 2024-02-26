@@ -1,0 +1,24 @@
+$color-primary: #27ae60;
+$color-secondary: #eb5757;
+$grey-600: #333333;
+$grey-300: #828282;
+$grey-200: #bdbdbd;
+$grey-100: #e0e0e0;
+$grey-0: #f5f5f5;
+
+@mixin button-styles($bg-color: $color-primary, $text-color: white) {
+  width: 6rem;
+  height: 2.5rem;
+  padding: 0.75em 1.25em;
+  border: 2px solid $grey-200;
+  background-color: $grey-200;
+  color: $text-color;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: $font-weight-semibold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+}

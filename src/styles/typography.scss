@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+$font-family-default: "Inter", sans-serif;
+$font-size-h1: 26px;
+$font-size-h2: 22px;
+$font-size-h3: 18px;
+$font-size-body: 14px;
+$font-size-caption: 12px;
+
+$font-weight-regular: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+@mixin typography($size, $weight, $line-height) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line-height;
+}
+
+body {
+  font-family: $font-family-default;
+  font-size: $font-size-body;
+  font-weight: $font-weight-regular;
+}
+
+h1 {
+  @include typography($font-size-h1, $font-weight-bold, 1.2);
+}
+
+h2 {
+  @include typography($font-size-h2, $font-weight-bold, 1.2);
+}
+
+h3 {
+  @include typography($font-size-h3, $font-weight-regular, 1.2);
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: calc(#{$font-size-h1} * 1.1);
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: calc(#{$font-size-h1} * 1.2);
+  }
+}

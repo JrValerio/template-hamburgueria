@@ -1,0 +1,123 @@
+@import "../../styles/globalstyles.scss";
+@import "../../styles/typography.scss";
+
+.header {
+  background-color: $grey-0;
+  max-width: 100%;
+  height: 4.75rem;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    max-width: 100%;
+    width: 25.875rem;
+    height: 4.75rem;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+
+    @media (min-width: 520px) {
+      max-width: 100%;
+      width: 28rem;
+      margin-inline: auto;
+    }
+
+    @media (min-width: 768px) {
+      max-width: 100%;
+      margin-inline: auto;
+    }
+
+    @media (min-width: 1024px) {
+      max-width: 100%;
+      width: 95%;
+      margin-inline: auto;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cartButton {
+    position: relative;
+    color: #bdbdbd;
+    font-family: "Font Awesome 5 Free";
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+
+    .cartCount {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: $color-primary;
+      width: 20px;
+      height: 20px;
+      border-radius: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.75rem;
+    }
+  }
+
+  .searchForm {
+    width: 1rem;
+    // display: none;
+
+    .mdButton {
+      background-color: transparent;
+      border: none;
+      padding: 0.25em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        outline: none;
+      }
+
+      svg {
+        fill: $grey-600;
+      }
+    }
+  }
+
+  // @media (min-width: 520px) {
+  //   .container {
+  //     width: 58rem;
+  //     margin-inline: auto;
+  //     max-width: 100%;
+  //   margin-left: auto;
+  //   margin-right: auto;
+  //   }
+  // }
+
+  @media (min-width: 520px) {
+    width: 70rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 100%;
+    width: 85rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 100%;
+    width: 100rem;
+    margin-inline: auto;
+  }
+}

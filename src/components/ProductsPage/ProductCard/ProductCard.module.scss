@@ -1,0 +1,81 @@
+@import "../../../styles/globalstyles.scss";
+@import "../../../styles/typography.scss";
+
+.cardContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  flex: 0 0 auto;
+  gap: 20px;
+  padding: 20px;
+  max-width: 100%;
+
+  .productCard {
+    width: 100%;
+    max-width: 300px;
+    height: 100%;
+    background: $grey-0;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 2px solid $grey-200;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    &:hover {
+      border: 2px solid $color-primary;
+    }
+    &:hover button {
+      background-color: $color-primary;
+      border: 2px solid $color-primary;
+    }
+  }
+
+  .productImage {
+    width: 300px;
+    height: 150px;
+    background: $grey-100;
+    object-fit: contain;
+  }
+
+  .productDetails {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .productName {
+    @include typography($font-size-h3, $font-weight-bold, 24px);
+    color: $grey-600;
+  }
+
+  .productCategory {
+    @include typography($font-size-caption, $font-weight-regular, 16px);
+    color: $grey-300;
+  }
+
+  .productPrice {
+    @include typography($font-size-body, $font-weight-semibold, 24px);
+    color: $color-primary;
+  }
+
+  .addButton {
+    @include button-styles($grey-200, white);
+    border-radius: 8px;
+    margin-top: auto;
+  }
+
+  @media (min-width: 520px) {
+    width: calc((100% - 60px) / 2);
+  }
+
+  @media (min-width: 768px) {
+    width: calc((100% - 80px) / 3);
+  }
+
+  @media (min-width: 1024px) {
+    width: calc((100% - 100px) / 4);
+  }
+}
