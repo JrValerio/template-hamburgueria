@@ -55,23 +55,23 @@ export const HomePage = () => {
     setCartList((prevCartList) => {
       const existingProduct = prevCartList.find(
         (item) => item.id === productToAdd.id
-        );
-        const newCartList = existingProduct
+      );
+      const newCartList = existingProduct
         ? prevCartList.map((item) =>
-        item.id === productToAdd.id
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
-        )
+            item.id === productToAdd.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
         : [...prevCartList, { ...productToAdd, quantity: 1 }];
-        
-        localStorage.setItem("cartList", JSON.stringify(newCartList));
-        return newCartList;
+  
+      localStorage.setItem("cartList", JSON.stringify(newCartList));
+      return newCartList;
     });
   };
-
+  
   const removeFromCart = (productId) => {
-    setCartList((prevCartList) =>
-      prevCartList.reduce((acc, item) => {
+    setCartList((prevCartList) => {
+      const newCartList = prevCartList.reduce((acc, item) => {
         if (item.id === productId) {
           if (item.quantity === 1) {
             return acc;
@@ -80,9 +80,13 @@ export const HomePage = () => {
         } else {
           return [...acc, item];
         }
-      }, [])
-    );
+      }, []);
+  
+      localStorage.setItem("cartList", JSON.stringify(newCartList));
+      return newCartList;
+    });
   };
+  
 
   const clearCart = () => {
     setCartList([]);

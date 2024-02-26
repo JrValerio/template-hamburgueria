@@ -95,8 +95,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: $grey-300;
     gap: 16rem;
+
+    h3 {
+      color: $grey-600;
+    }
+    span {
+      color: $grey-300;
+    }
   }
 
   button {

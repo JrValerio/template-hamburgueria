@@ -4,7 +4,6 @@
 .cartItemCard {
   background-color: $grey-0;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   padding: 1rem;
@@ -54,6 +53,30 @@
       }
       .itemPrice {
         color: $color-primary;
+      }
+    }
+    .quantityContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .quantityButton {
+        @include typography($font-size-h3, $font-weight-regular, 1.2);
+        background-color: $grey-0;
+        color: $grey-300;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $grey-100;
+          color: $grey-600;
+        }
       }
     }
 

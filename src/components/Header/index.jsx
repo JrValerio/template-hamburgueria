@@ -30,13 +30,6 @@ export const Header = ({ cartQuantity, onSearchSubmit, onCartClick }) => {
           </div>
           <div>
             <form onSubmit={handleSubmit} className={styles.searchForm}>
-              <input
-                id="search"
-                className={styles.searchInput}
-                type="text"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-              />
               <button className={styles.mdButton} type="submit">
                 <MdSearch size={21} />
               </button>

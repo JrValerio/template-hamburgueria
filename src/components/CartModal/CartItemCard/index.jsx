@@ -1,7 +1,12 @@
 import { MdDelete } from "react-icons/md";
 import styles from "./CartItemCard.module.scss";
 
-export const CartItemCard = ({ product, onRemove }) => {
+export const CartItemCard = ({
+  product,
+  onRemove,
+  onIncrement,
+  onDecrement,
+}) => {
   return (
     <li className={styles.cartItemCard}>
       <div className={styles.itemContainer}>
@@ -23,6 +28,22 @@ export const CartItemCard = ({ product, onRemove }) => {
             })}
           </p>
         </div>
+        <div className={styles.quantityContainer}>
+          <button
+            onClick={() => onDecrement(product.id)}
+            className={styles.quantityButton}
+          >
+            -
+          </button>
+          {/* <span className={styles.quantitySpan}>{product.quantity}</span> */}
+          <button
+            onClick={() => onIncrement(product.id)}
+            className={styles.quantityButton}
+          >
+            +
+          </button>
+        </div>
+
         <div className={styles.cartItemButton}>
           <button
             aria-label="Remover item"

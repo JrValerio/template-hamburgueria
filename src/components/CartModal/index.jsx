@@ -28,10 +28,38 @@ export const CartModal = ({
     return prevValue + product.quantity * product.price;
   }, 0);
 
+  const onIncrement = (productId) => {
+    setCartList((prevCartList) => {
+      const newCartList = prevCartList.map((item) =>
+        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+      );
+  
+      localStorage.setItem("cartList", JSON.stringify(newCartList));
+      return newCartList;
+    });
+  };
+  
+  const onDecrement = (productId) => {
+    setCartList((prevCartList) => {
+      const newCartList = prevCartList.map((item) => {
+        if (item.id === productId) {
+          return item.quantity > 1
+            ? { ...item, quantity: item.quantity - 1 }
+            : item;
+        }
+        return item;
+      });
+  
+      localStorage.setItem("cartList", JSON.stringify(newCartList));
+      return newCartList;
+    });
+  };
+  
+
   return (
     <>
       <div className={styles.modalBackdrop} />
-      <div role="dialog" className={styles.cartModal} >
+      <div role="dialog" className={styles.cartModal}>
         <div className={styles.cartContent} ref={modalRef}>
           <div className={styles.cartHeader}>
             <h2 className={styles.cartTitle}>Carrinho de compras</h2>
@@ -56,6 +84,8 @@ export const CartModal = ({
                   setCartList(updatedCartList);
                   onRemoveItem(product.id);
                 }}
+                onIncrement={onIncrement}
+                onDecrement={onDecrement}
               />
             ))}
           </ul>
@@ -84,5 +114,3 @@ export const CartModal = ({
     </>
   );
 };
-
-
