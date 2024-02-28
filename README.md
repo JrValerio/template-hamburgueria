@@ -45,7 +45,7 @@ A combinação desses hooks personalizados contribuiu significativamente para um
 
 ## Agradecimentos
 
-Agradeço ao instrutor Fernando Feliciano pelo suporte e orientações durante o desenvolvimento deste projeto.
+Agradeço ao instrutor [Fernando Feliciano](https://www.linkedin.com/in/nandorodrigo/) pelo suporte e orientações durante o desenvolvimento deste projeto.
 
 ## Links
 
