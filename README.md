@@ -1,27 +1,55 @@
-## Sobre a entrega
+# Hamburgueria da Kenzie
 
-O objetivo desta é implementar um conjunto de funcionalidades e estilização a projeto existente, colocando em prática os conhecimentos aprendidos até aqui.
-Iremos acessar a lista de produto desta API e simularemos um carrinho de compras com React.
-Além disso, para praticar a estilização, a aplicação deverá ser semelhante a este Figma.
+![Visualização da aplicação Hamburgueria da Kenzie](https://github.com/JrValerio/template-hamburgueria/blob/main/src/assets/Hamburgueria%20Kenzie.png)
 
-## Instruções
-Comece realizando o clone do repositório. Diferente da entrega anterior, novamente, não partiremos da estaca zero, por isso, após o clone execute o npm install para baixar as dependências.
 
-### 1. Estilização
-Todos os componentes da aplicação já estão prontos de forma básica, e novamente, utilizaremos o SASS para estilizar este projeto, por isso, o estilo pode ser um excelente ponto de partida. 
-Atente-se que, nessa entrega a responsividade vai ser obrigatória, por isso, chegou o momento de você aplicar tudo que aprendeu até agora.
+## Descrição
 
-### 2. Trazendo os produtos da API | Busca
-Um bom primeiro passo na lógica será utilizar o useEffect para trazer os produtos da API, fique atento, já existe um estado adequado para armazenar os produtos e também já foi feito um map do mesmo.
-Com os produtos vindo da API, uma funcionalidade interessante a desenvolver em seguida é a busca, observe que o formulário de busca já captura o que o usuário fornece.
+Este projeto foi desenvolvido como atividade prática do Módulo 3 da Kenzie Academy Brasil. A Hamburgueria da Kenzie é uma aplicação web que simula um sistema de pedidos para uma hamburgueria, permitindo aos usuários visualizar produtos, adicionar itens ao carrinho de compras e gerenciar suas seleções.
 
-### 3. Gerenciamento do carrinho | Modal
-De forma muito semelhante ao gerenciamento de transações na entrega anterior, trabalhe na lógica de adicionar e remover itens do carrinho, bem como imprimir os totais. Fique atento, diferente da entrega anterior, os produtos do carrinho virão da própria lista de produtos fornecida pela API.
+## Tecnologias e Ferramentas Utilizadas
 
-Nessa etapa, com o gerenciamento funcionando de forma correta, valerá muito a pena utilizar o useEffect para persistir os dados do carrinho no localStorage.
+- **React:** Framework utilizado para construir a interface de usuário da aplicação.
+- **Axios:** Biblioteca utilizada para fazer requisições HTTP à API de produtos.
+- **React Icons:** Biblioteca utilizada para adicionar ícones de diversas coleções, como Material Design e FontAwesome.
+- **SASS (SCSS):** Utilizado para estilizar os componentes da aplicação de forma mais organizada e com recursos avançados.
+- **Local Storage:** Tecnologia do navegador utilizada para persistir os dados do carrinho de compras mesmo após o fechamento da página.
+- **Hooks Personalizados:** Utilização de hooks personalizados como useOutsideClick e useEscapePress para adicionar funcionalidades específicas ao projeto.
+- **Mobile First:** Abordagem de desenvolvimento focada na experiência do usuário em dispositivos móveis.
 
-### 4. Modal
-Para o modal, será exigido um comportamento simples de abertura e fechamento, aplique seu conhecimento de condicionais no JSX.
+## Melhoria na Interação do Usuário com Hooks Personalizados
 
-### 5. Desafio - Refine o comportamento do seu modal
-Não é obrigatório, mas, caso você consiga, com base no que foi mostrado nos conteúdos extras, aplique os comportamentos de: fechar ao clicar fora e fechar ao clicar na "Esc" em seu modal, de preferência trabalhando com a criação de hooks para cada um destes comportamentos. Você consegue!
+Um dos desafios na criação da Hamburgueria da Kenzie foi garantir uma experiência de usuário suave e intuitiva, especialmente no que diz respeito aos modais de carrinho de compras e busca de produtos. Para resolver isso, desenvolvi dois hooks personalizados: useOutsideClick e useEscapePress.
+
+- O hook **useOutsideClick** foi utilizado no modal do carrinho de compras. Ele permite que o usuário feche o modal clicando fora da área do modal, proporcionando uma maneira rápida e conveniente de retornar à navegação na página sem a necessidade de buscar explicitamente um botão de fechar.
+
+- Por outro lado, o hook **useEscapePress** foi aplicado tanto no modal do carrinho quanto no modal de busca. Esse hook detecta quando o usuário pressiona a tecla "Esc" e fecha o modal automaticamente. Essa funcionalidade é particularmente útil para usuários que preferem navegar usando o teclado, tornando a interação com a aplicação mais ágil e menos dependente de cliques do mouse.
+
+A combinação desses hooks personalizados contribuiu significativamente para uma interação mais fluida e agradável na Hamburgueria da Kenzie, alinhando-se com os princípios de uma boa experiência do usuário.
+
+## Funcionalidades
+
+- Listagem de produtos com dados vindos de uma API.
+- Adição e remoção de produtos no carrinho de compras.
+- Visualização do carrinho de compras com opções de incrementar, decrementar e remover itens.
+- Persistência do carrinho de compras no Local Storage.
+- Busca de produtos com modal de resultados.
+- Fechamento de modais ao clicar fora ou pressionar a tecla Esc.
+
+## Aprendizados
+
+- Aprofundamento no uso de React e gerenciamento de estado.
+- Integração com APIs usando Axios.
+- Uso de hooks personalizados para melhorar a interação do usuário.
+- Prática de estilização avançada com SASS e abordagem Mobile First.
+
+## Agradecimentos
+
+Agradeço ao instrutor Fernando Feliciano pelo suporte e orientações durante o desenvolvimento deste projeto.
+
+## Links
+
+- [Projeto ao vivo](https://template-hamburgueria-orcin.vercel.app/)
+- [Repositório no GitHub](https://github.com/JrValerio/template-hamburgueria)
+
+Desenvolvido por [Amaro Júnior](https://www.linkedin.com/in/jrvalerio).
