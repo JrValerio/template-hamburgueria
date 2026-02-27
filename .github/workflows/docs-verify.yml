@@ -1,0 +1,59 @@
+name: docs-verify
+
+on:
+  # Note: new workflow files only run on pull_request after being merged
+  # to the default branch (GitHub security policy). After first merge,
+  # this will gate every subsequent PR that touches docs/.
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs-verify.yml"
+  pull_request:
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs-verify.yml"
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate backlog-roadmap.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const raw = fs.readFileSync('docs/backlog-roadmap.json', 'utf8');
+            const data = JSON.parse(raw);
+            const required = ['id','title','horizon','priority','wsjf','acceptanceCriteria','kpi'];
+            for (const item of data.items) {
+              for (const field of required) {
+                if (item[field] === undefined) {
+                  console.error('Missing field:', field, 'in item', item.id);
+                  process.exit(1);
+                }
+              }
+            }
+            console.log('JSON OK —', data.items.length, 'items validated');
+          "
+
+      - name: Ensure audit doc exists
+        run: test -f docs/auditoria-tecnica-estrategica.md
+
+      - name: Check audit doc has required sections
+        # Match on stable numeric anchors (## N.) — immune to text renames
+        run: |
+          for anchor in "^## 1\." "^## 2\." "^## 3\." "^## 4\." \
+                        "^## 5\." "^## 6\." "^## 7\." "^## 8\." \
+                        "^## 9\." "^## 10\."; do
+            grep -qP "$anchor" docs/auditoria-tecnica-estrategica.md \
+              || { echo "Missing section anchor: $anchor"; exit 1; }
+          done
+          echo "All 10 section anchors present"
