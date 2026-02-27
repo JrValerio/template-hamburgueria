@@ -1,0 +1,63 @@
+@import "../../styles/globalstyles.scss";
+@import "../../styles/typography.scss";
+
+.page {
+  padding: 2rem 1.25rem;
+  max-width: 36rem;
+
+  @media (min-width: 768px) {
+    padding: 2.5rem 2rem;
+  }
+
+  h1 {
+    color: $color-text;
+    font-size: $font-size-h2;
+    margin-bottom: 0;
+  }
+}
+
+.successMsg {
+  margin-top: 1rem;
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.form {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.input {
+  padding: 0.625rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid $color-border;
+  background-color: $color-surface-2;
+  color: $color-text;
+  font-size: $font-size-body;
+  width: 100%;
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+}
+
+.textarea {
+  @extend .input;
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.submitButton {
+  @include button-styles($color-primary, white);
+  border-radius: 8px;
+  padding: 0.625rem 1.5rem;
+  align-self: flex-start;
+  font-weight: $font-weight-semibold;
+}
