@@ -34,6 +34,7 @@
     background-color: $color-surface;
     border: 1px solid $color-border;
     border-radius: 8px;
+    width: 100%;
     max-width: 25rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     display: flex;
@@ -69,62 +70,50 @@
         overflow: auto;
       }
     }
+
+    .cartFooter {
+      width: 100%;
+      flex-shrink: 0;
+      border-top: 1px solid $color-border;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      .cartTotal {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        h3 {
+          color: $color-text;
+        }
+
+        span {
+          color: $color-primary;
+          font-weight: $font-weight-bold;
+        }
+      }
+
+      button {
+        @include button-styles($color-primary, white);
+        border-radius: 8px;
+        width: 100%;
+        height: 3.75rem;
+        padding: 0 1.25rem;
+        justify-content: center;
+        align-items: center;
+        font-size: $font-size-h3;
+        font-weight: $font-weight-regular;
+      }
+    }
   }
 
   @media (min-width: 520px) {
     .cartContent {
       max-width: 35rem;
-    }
-  }
-}
-
-.cartFooter {
-  width: 28.375rem;
-  height: 6.5rem;
-  flex-shrink: 0;
-  max-width: 100%;
-  border-top: 1px solid $color-border;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
-  gap: 1rem;
-
-  .cartTotal {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16rem;
-
-    h3 {
-      color: $color-text;
-    }
-    span {
-      color: $color-primary;
-      font-weight: $font-weight-bold;
-    }
-  }
-
-  button {
-    @include button-styles($color-primary, white);
-    border-radius: 8px;
-    display: flex;
-    max-width: 100%;
-    width: 28.375rem;
-    height: 3.75rem;
-    padding: 0rem 1.25rem;
-    justify-content: center;
-    align-items: center;
-    gap: 0.625rem;
-    flex-shrink: 0;
-    font-size: $font-size-h3;
-    font-weight: $font-weight-regular;
-  }
-
-  @media (min-width: 520px) {
-    .cartTotal {
-      gap: 19rem;
     }
   }
 }

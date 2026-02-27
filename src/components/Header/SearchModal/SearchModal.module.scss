@@ -47,19 +47,21 @@
 
     .searchInput {
       width: 100%;
-      padding: 10px;
-      border: none;
+      padding: 10px 12px;
+      border: 1px solid $color-border;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
       outline: none;
       color: $color-text;
-      background-color: transparent;
+      background-color: $color-surface-2;
 
       &::placeholder {
         color: $color-text-muted;
       }
 
       &:focus {
-        outline: 2px solid $color-primary;
-        outline-offset: -2px;
+        border-color: $color-primary;
+        box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.2);
       }
     }
   }
