@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { api } from "/src/services/api.js";
+import { fetchProducts } from "/src/services/api.js";
 import { CartModal } from "../../components/CartModal";
 import { Header } from "../../components/Header";
 import { ProductList } from "../../components/ProductsPage/ProductList";
@@ -11,25 +11,25 @@ export const HomePage = () => {
   const [cartList, setCartList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isOffline, setIsOffline] = useState(false);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const loadProducts = async () => {
       setIsLoading(true);
       try {
-        const response = await api.get("/products");
-        setProductList(response.data);
+        const data = await fetchProducts();
+        setProductList(data);
+        setIsOffline(data._fromFallback === true);
         setError(null);
-      } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
-        setError(
-          "Não foi possível carregar os produtos. Por favor, tente novamente mais tarde."
-        );
+      } catch (err) {
+        console.error("Erro ao buscar produtos:", err);
+        setError("Não foi possível carregar os produtos. Por favor, tente novamente mais tarde.");
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchProducts();
+    loadProducts();
   }, []);
 
   useEffect(() => {
@@ -92,10 +92,6 @@ export const HomePage = () => {
     localStorage.removeItem("cartList");
   };
 
-  const handleCloseModal = () => {
-    setIsCartVisible(false);
-  };
-
   const handleSearch = (searchValue) => {
     setSearchTerm(searchValue.toLowerCase());
   };
@@ -114,6 +110,22 @@ export const HomePage = () => {
           0
         )}
       />
+
+      {isOffline && (
+        <div
+          role="status"
+          style={{
+            background: "#fff3cd",
+            borderBottom: "1px solid #ffc107",
+            color: "#856404",
+            fontSize: "0.85rem",
+            padding: "8px 16px",
+            textAlign: "center",
+          }}
+        >
+          Catálogo em modo offline — exibindo dados locais. Funcionalidade completa disponível quando a conexão for restabelecida.
+        </div>
+      )}
 
       <main>
         {isLoading ? (
