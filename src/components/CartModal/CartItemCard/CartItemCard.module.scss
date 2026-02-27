@@ -2,13 +2,16 @@
 @import "../../../styles/typography.scss";
 
 .cartItemCard {
-  background-color: $grey-0;
-  border-radius: 8px;
+  background-color: $color-surface-2;
+  border-bottom: 1px solid $color-border;
   display: flex;
   align-items: center;
   padding: 1rem;
-  margin-bottom: 1rem;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   .itemContainer {
     display: flex;
@@ -23,15 +26,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: $grey-100;
+      background-color: $color-surface;
+      border-radius: 6px;
+      overflow: hidden;
 
       img {
-        width: 3.4375rem;
-        height: 3.34313rem;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 6px;
       }
     }
 
@@ -44,38 +47,40 @@
 
       .itemTitle {
         font-weight: $font-weight-bold;
+        color: $color-text;
         margin-bottom: 0.25rem;
       }
 
       .itemQuantity {
         font-size: $font-size-body;
-        color: $grey-600;
+        color: $color-text-muted;
       }
+
       .itemPrice {
         color: $color-primary;
+        font-weight: $font-weight-semibold;
       }
     }
+
     .quantityContainer {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
 
       .quantityButton {
         @include typography($font-size-h3, $font-weight-regular, 1.2);
-        background-color: $grey-0;
-        color: $grey-300;
-        border: none;
+        background-color: $color-surface;
+        color: $color-text-muted;
+        border: 1px solid $color-border;
         padding: 5px 10px;
         border-radius: 5px;
         cursor: pointer;
 
         &:hover {
-          background-color: $grey-100;
-          color: $grey-600;
+          background-color: $color-surface-2;
+          color: $color-text;
+          border-color: $color-primary;
         }
       }
     }
@@ -87,13 +92,13 @@
       cursor: pointer;
 
       .icon {
-        color: $grey-200;
+        color: $color-text-muted;
         width: 1.5rem;
         height: 1.5rem;
         flex-shrink: 0;
 
         &:hover {
-          color: $color-primary;
+          color: $color-secondary;
         }
       }
     }
