@@ -1,0 +1,22 @@
+@import "../../styles/globalstyles.scss";
+@import "../../styles/typography.scss";
+
+.page {
+  padding: 2rem 1.25rem;
+
+  @media (min-width: 768px) {
+    padding: 2.5rem 2rem;
+  }
+
+  h1 {
+    color: $color-text;
+    font-size: $font-size-h2;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.subtitle {
+  color: $color-text-muted;
+  font-size: $font-size-body;
+  margin: 0;
+}

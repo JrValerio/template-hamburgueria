@@ -1,0 +1,12 @@
+@import "../../styles/globalstyles.scss";
+@import "../../styles/typography.scss";
+
+.heading {
+  padding: 2rem 1.25rem 1rem;
+  color: $color-text;
+  font-size: $font-size-h2;
+
+  @media (min-width: 768px) {
+    padding: 2.5rem 2rem 1rem;
+  }
+}

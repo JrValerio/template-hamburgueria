@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import { ProductList } from "../../components/ProductsPage/ProductList";
+import styles from "./MenuPage.module.scss";
 
 export const MenuPage = () => {
   const { productList, addToCart, searchTerm, isLoading } = useOutletContext();
@@ -10,9 +11,7 @@ export const MenuPage = () => {
 
   return (
     <main>
-      <h1 style={{ padding: "2rem 1rem 1rem", color: "var(--color-text, #f0f0f0)" }}>
-        Cardápio
-      </h1>
+      <h1 className={styles.heading}>Cardápio</h1>
       <ProductList
         productList={filteredProducts}
         onAddToCart={addToCart}
