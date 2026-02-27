@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { fetchProducts } from "../../services/api";
 import { Header } from "../Header";
+import { Footer } from "../Footer";
 import { CartModal } from "../CartModal";
 
 export function AppLayout() {
@@ -103,6 +104,8 @@ export function AppLayout() {
           isLoading,
         }}
       />
+
+      <Footer />
 
       {isCartVisible && (
         <CartModal
