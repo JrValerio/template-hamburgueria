@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchProducts } from "/src/services/api.js";
+import { fetchProducts } from "../../services/api";
 import { CartModal } from "../../components/CartModal";
 import { Header } from "../../components/Header";
 import { ProductList } from "../../components/ProductsPage/ProductList";
@@ -17,9 +17,9 @@ export const HomePage = () => {
     const loadProducts = async () => {
       setIsLoading(true);
       try {
-        const data = await fetchProducts();
-        setProductList(data);
-        setIsOffline(data._fromFallback === true);
+        const { products, fromFallback } = await fetchProducts();
+        setProductList(products);
+        setIsOffline(fromFallback);
         setError(null);
       } catch (err) {
         console.error("Erro ao buscar produtos:", err);

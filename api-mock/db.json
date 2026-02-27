@@ -1,0 +1,407 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "sku": "SND-001",
+      "name": "Hamburger Clássico",
+      "category": "Sanduíches",
+      "price": 24.9,
+      "img": "https://placehold.co/300x300/e67e22/ffffff?text=Cl%C3%A1ssico",
+      "description": "Blend 180g, alface, tomate, cebola e molho especial.",
+      "active": true,
+      "tags": [
+        "best-seller",
+        "sem-gluten-disponivel"
+      ]
+    },
+    {
+      "id": 2,
+      "sku": "SND-002",
+      "name": "Cheeseburger",
+      "category": "Sanduíches",
+      "price": 27.9,
+      "img": "https://placehold.co/300x300/e67e22/ffffff?text=Cheese",
+      "description": "Blend 180g com queijo cheddar cremoso.",
+      "active": true,
+      "tags": [
+        "queijo"
+      ]
+    },
+    {
+      "id": 3,
+      "sku": "SND-003",
+      "name": "Bacon Burger",
+      "category": "Sanduíches",
+      "price": 32.9,
+      "img": "https://placehold.co/300x300/c0392b/ffffff?text=Bacon",
+      "description": "Blend 180g, bacon crocante, cheddar e BBQ.",
+      "active": true,
+      "tags": [
+        "bacon",
+        "best-seller"
+      ]
+    },
+    {
+      "id": 4,
+      "sku": "SND-004",
+      "name": "X-Tudo",
+      "category": "Sanduíches",
+      "price": 38.9,
+      "img": "https://placehold.co/300x300/c0392b/ffffff?text=X-Tudo",
+      "description": "Blend 200g, ovo, bacon, cheddar, alface, tomate e maionese.",
+      "active": true,
+      "tags": [
+        "completo"
+      ]
+    },
+    {
+      "id": 5,
+      "sku": "SND-005",
+      "name": "Smash Burger",
+      "category": "Sanduíches",
+      "price": 34.9,
+      "img": "https://placehold.co/300x300/e67e22/ffffff?text=Smash",
+      "description": "Dois smash patties 80g, cebola caramelizada e molho especial.",
+      "active": true,
+      "tags": [
+        "smash",
+        "trending"
+      ]
+    },
+    {
+      "id": 6,
+      "sku": "SND-006",
+      "name": "Veggie Burger",
+      "category": "Sanduíches",
+      "price": 29.9,
+      "img": "https://placehold.co/300x300/27ae60/ffffff?text=Veggie",
+      "description": "Blend de grão-de-bico, rúcula, tomate seco e cream cheese.",
+      "active": true,
+      "tags": [
+        "vegetariano"
+      ]
+    },
+    {
+      "id": 7,
+      "sku": "SND-007",
+      "name": "Crispy Chicken",
+      "category": "Sanduíches",
+      "price": 28.9,
+      "img": "https://placehold.co/300x300/f39c12/ffffff?text=Chicken",
+      "description": "Frango empanado crocante, coleslaw e picles.",
+      "active": true,
+      "tags": [
+        "frango"
+      ]
+    },
+    {
+      "id": 8,
+      "sku": "SND-008",
+      "name": "BBQ Burger",
+      "category": "Sanduíches",
+      "price": 35.9,
+      "img": "https://placehold.co/300x300/c0392b/ffffff?text=BBQ",
+      "description": "Blend 180g, onion rings, cheddar e molho BBQ artesanal.",
+      "active": true,
+      "tags": [
+        "bbq"
+      ]
+    },
+    {
+      "id": 9,
+      "sku": "SND-009",
+      "name": "Picanha Burger",
+      "category": "Sanduíches",
+      "price": 42.9,
+      "img": "https://placehold.co/300x300/922b21/ffffff?text=Picanha",
+      "description": "Blend de picanha 200g, provolone grelhado e chimichurri.",
+      "active": true,
+      "tags": [
+        "premium",
+        "carne-especial"
+      ]
+    },
+    {
+      "id": 10,
+      "sku": "SND-010",
+      "name": "Fish Burger",
+      "category": "Sanduíches",
+      "price": 27.9,
+      "img": "https://placehold.co/300x300/1a5276/ffffff?text=Fish",
+      "description": "Filé de peixe empanado, alface e molho tártaro.",
+      "active": true,
+      "tags": [
+        "peixe"
+      ]
+    },
+    {
+      "id": 11,
+      "sku": "CMB-001",
+      "name": "Combo Clássico",
+      "category": "Combos",
+      "price": 39.9,
+      "img": "https://placehold.co/300x300/884ea0/ffffff?text=Combo+1",
+      "description": "Hamburger Clássico + Batata Frita P + Refri lata.",
+      "active": true,
+      "tags": [
+        "combo",
+        "economia"
+      ]
+    },
+    {
+      "id": 12,
+      "sku": "CMB-002",
+      "name": "Combo Bacon",
+      "category": "Combos",
+      "price": 46.9,
+      "img": "https://placehold.co/300x300/884ea0/ffffff?text=Combo+2",
+      "description": "Bacon Burger + Batata Frita G + Refri lata.",
+      "active": true,
+      "tags": [
+        "combo",
+        "bacon"
+      ]
+    },
+    {
+      "id": 13,
+      "sku": "CMB-003",
+      "name": "Combo Smash",
+      "category": "Combos",
+      "price": 49.9,
+      "img": "https://placehold.co/300x300/884ea0/ffffff?text=Combo+3",
+      "description": "Smash Burger + Batata Rústica + Milk Shake P.",
+      "active": true,
+      "tags": [
+        "combo",
+        "smash"
+      ]
+    },
+    {
+      "id": 14,
+      "sku": "CMB-004",
+      "name": "Combo Veggie",
+      "category": "Combos",
+      "price": 43.9,
+      "img": "https://placehold.co/300x300/27ae60/ffffff?text=Veggie+Combo",
+      "description": "Veggie Burger + Batata Frita P + Suco Natural.",
+      "active": true,
+      "tags": [
+        "combo",
+        "vegetariano"
+      ]
+    },
+    {
+      "id": 15,
+      "sku": "CMB-005",
+      "name": "Combo Premium",
+      "category": "Combos",
+      "price": 58.9,
+      "img": "https://placehold.co/300x300/7d6608/ffffff?text=Premium",
+      "description": "Picanha Burger + Batata Rústica G + Milk Shake G.",
+      "active": true,
+      "tags": [
+        "combo",
+        "premium"
+      ]
+    },
+    {
+      "id": 16,
+      "sku": "ACP-001",
+      "name": "Batata Frita P",
+      "category": "Acompanhamentos",
+      "price": 11.9,
+      "img": "https://placehold.co/300x300/f1c40f/333333?text=Fries+P",
+      "description": "Batata palito crocante, porção pequena.",
+      "active": true,
+      "tags": [
+        "batata"
+      ]
+    },
+    {
+      "id": 17,
+      "sku": "ACP-002",
+      "name": "Batata Frita G",
+      "category": "Acompanhamentos",
+      "price": 17.9,
+      "img": "https://placehold.co/300x300/f1c40f/333333?text=Fries+G",
+      "description": "Batata palito crocante, porção grande.",
+      "active": true,
+      "tags": [
+        "batata"
+      ]
+    },
+    {
+      "id": 18,
+      "sku": "ACP-003",
+      "name": "Batata Rústica",
+      "category": "Acompanhamentos",
+      "price": 19.9,
+      "img": "https://placehold.co/300x300/d4ac0d/333333?text=R%C3%BAstica",
+      "description": "Batata com casca temperada com ervas e páprica.",
+      "active": true,
+      "tags": [
+        "batata",
+        "temperada"
+      ]
+    },
+    {
+      "id": 19,
+      "sku": "ACP-004",
+      "name": "Onion Rings",
+      "category": "Acompanhamentos",
+      "price": 16.9,
+      "img": "https://placehold.co/300x300/e59866/333333?text=Onion+Rings",
+      "description": "Anéis de cebola empanados com panko.",
+      "active": true,
+      "tags": [
+        "cebola"
+      ]
+    },
+    {
+      "id": 20,
+      "sku": "ACP-005",
+      "name": "Nuggets (8 un)",
+      "category": "Acompanhamentos",
+      "price": 18.9,
+      "img": "https://placehold.co/300x300/f39c12/333333?text=Nuggets",
+      "description": "8 nuggets de frango crocante com molho barbecue.",
+      "active": true,
+      "tags": [
+        "frango",
+        "nuggets"
+      ]
+    },
+    {
+      "id": 21,
+      "sku": "ACP-006",
+      "name": "Coleslaw",
+      "category": "Acompanhamentos",
+      "price": 9.9,
+      "img": "https://placehold.co/300x300/a9cce3/333333?text=Coleslaw",
+      "description": "Salada de repolho cremosa.",
+      "active": true,
+      "tags": [
+        "salada",
+        "vegetariano"
+      ]
+    },
+    {
+      "id": 22,
+      "sku": "BEB-001",
+      "name": "Refrigerante Lata",
+      "category": "Bebidas",
+      "price": 7.9,
+      "img": "https://placehold.co/300x300/2980b9/ffffff?text=Refri",
+      "description": "Coca-Cola, Pepsi, Guaraná ou Sprite. 350 ml.",
+      "active": true,
+      "tags": [
+        "gelado"
+      ]
+    },
+    {
+      "id": 23,
+      "sku": "BEB-002",
+      "name": "Água Mineral",
+      "category": "Bebidas",
+      "price": 4.9,
+      "img": "https://placehold.co/300x300/85c1e9/333333?text=%C3%81gua",
+      "description": "Água mineral sem gás. 500 ml.",
+      "active": true,
+      "tags": []
+    },
+    {
+      "id": 24,
+      "sku": "BEB-003",
+      "name": "Suco de Laranja",
+      "category": "Bebidas",
+      "price": 11.9,
+      "img": "https://placehold.co/300x300/e67e22/ffffff?text=Suco+Laranja",
+      "description": "Suco natural de laranja. 400 ml.",
+      "active": true,
+      "tags": [
+        "natural",
+        "sem-acucar-adicional"
+      ]
+    },
+    {
+      "id": 25,
+      "sku": "BEB-004",
+      "name": "Suco de Morango",
+      "category": "Bebidas",
+      "price": 12.9,
+      "img": "https://placehold.co/300x300/c0392b/ffffff?text=Suco+Morango",
+      "description": "Suco natural de morango. 400 ml.",
+      "active": true,
+      "tags": [
+        "natural"
+      ]
+    },
+    {
+      "id": 26,
+      "sku": "BEB-005",
+      "name": "Milk Shake Chocolate",
+      "category": "Bebidas",
+      "price": 19.9,
+      "img": "https://placehold.co/300x300/6c3483/ffffff?text=Shake+Choc",
+      "description": "Milk shake cremoso de chocolate. 400 ml.",
+      "active": true,
+      "tags": [
+        "milk-shake"
+      ]
+    },
+    {
+      "id": 27,
+      "sku": "BEB-006",
+      "name": "Milk Shake Morango",
+      "category": "Bebidas",
+      "price": 19.9,
+      "img": "https://placehold.co/300x300/a93226/ffffff?text=Shake+Moran",
+      "description": "Milk shake cremoso de morango. 400 ml.",
+      "active": true,
+      "tags": [
+        "milk-shake"
+      ]
+    },
+    {
+      "id": 28,
+      "sku": "SOB-001",
+      "name": "Brownie com Sorvete",
+      "category": "Sobremesas",
+      "price": 16.9,
+      "img": "https://placehold.co/300x300/4a235a/ffffff?text=Brownie",
+      "description": "Brownie quente de chocolate com uma bola de sorvete de baunilha.",
+      "active": true,
+      "tags": [
+        "chocolate",
+        "quente-frio"
+      ]
+    },
+    {
+      "id": 29,
+      "sku": "SOB-002",
+      "name": "Sundae Caramelo",
+      "category": "Sobremesas",
+      "price": 13.9,
+      "img": "https://placehold.co/300x300/f0b27a/333333?text=Sundae",
+      "description": "Sorvete de baunilha com calda de caramelo e chantilly.",
+      "active": true,
+      "tags": [
+        "sorvete"
+      ]
+    },
+    {
+      "id": 30,
+      "sku": "SOB-003",
+      "name": "Churros com Doce de Leite",
+      "category": "Sobremesas",
+      "price": 14.9,
+      "img": "https://placehold.co/300x300/d4ac0d/333333?text=Churros",
+      "description": "Churros frito na hora com doce de leite e canela.",
+      "active": true,
+      "tags": [
+        "churros",
+        "brasileiro"
+      ]
+    }
+  ]
+}

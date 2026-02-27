@@ -19,11 +19,12 @@ export const api = axios.create({
  * - On all failures returns the local seed and sets `_fromFallback = true`
  *   on the returned array so callers can show a degraded-state indicator.
  */
+/**
+ * @returns {{ products: Array, fromFallback: boolean }}
+ */
 export async function fetchProducts() {
   if (import.meta.env.VITE_USE_STATIC_FALLBACK === "true") {
-    const seed = [...fallbackProducts];
-    seed._fromFallback = true;
-    return seed;
+    return { products: [...fallbackProducts], fromFallback: true };
   }
 
   const MAX_ATTEMPTS = 2;
@@ -31,7 +32,7 @@ export async function fetchProducts() {
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
       const { data } = await api.get("/products");
-      return data;
+      return { products: data, fromFallback: false };
     } catch (err) {
       if (attempt < MAX_ATTEMPTS) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -40,9 +41,7 @@ export async function fetchProducts() {
           `[api] fetchProducts: remote unreachable after ${MAX_ATTEMPTS} attempts — using local fallback.`,
           err?.message
         );
-        const seed = [...fallbackProducts];
-        seed._fromFallback = true;
-        return seed;
+        return { products: [...fallbackProducts], fromFallback: true };
       }
     }
   }
