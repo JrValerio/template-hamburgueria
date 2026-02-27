@@ -267,11 +267,10 @@
     }
   }
 
-  .drawerLinkActive {
-    color: $color-primary;
-    border-left: 3px solid $color-primary;
-    padding-left: calc(1.25rem - 3px);
-    background-color: rgba(39, 174, 96, 0.06);
-  }
+.drawerLinkActive {
+  color: $color-primary;
+  border-left: 3px solid $color-primary;
+  padding-left: calc(1.25rem - 3px);
+  background-color: rgba(39, 174, 96, 0.06);
 }
 
