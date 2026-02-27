@@ -1,10 +1,20 @@
 name: docs-verify
 
 on:
+  # Note: new workflow files only run on pull_request after being merged
+  # to the default branch (GitHub security policy). After first merge,
+  # this will gate every subsequent PR that touches docs/.
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs-verify.yml"
   pull_request:
     paths:
       - "docs/**"
       - ".github/workflows/docs-verify.yml"
+  workflow_dispatch:
 
 jobs:
   verify:
