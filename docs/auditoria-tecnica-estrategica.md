@@ -14,7 +14,7 @@
 
 ### PRIORIDADE ZERO (P0)
 **P0-01 — Dependência externa única da API sem fallback/controle contratual**
-- **Evidência:** `baseURL` hardcoded apontando para serviço de terceiros.
+- **Evidência:** [`src/services/api.js:4`](../src/services/api.js) — `baseURL` hardcoded: `https://hamburgueria-kenzie-json-serve.herokuapp.com/` (Heroku, serviço de terceiros sem SLA contratual).
 - **Impacto:** indisponibilidade total do catálogo, queda de conversão e risco reputacional imediato.
 - **Hotfix (≤ 7 dias):**
   1. Externalizar URL via `VITE_API_BASE_URL`.
