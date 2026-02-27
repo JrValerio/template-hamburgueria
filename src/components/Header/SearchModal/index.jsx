@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import { MdClose } from "react-icons/md";
 import styles from "./SearchModal.module.scss";
 import { useEscapePress, useOutsideClick } from "../../../services/hooks";
@@ -14,6 +15,10 @@ export const SearchModal = ({ onClose, onSearchSubmit }) => {
 
   useEffect(() => {
     inputRef.current.focus();
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, []);
 
   useEffect(() => {
@@ -36,8 +41,8 @@ export const SearchModal = ({ onClose, onSearchSubmit }) => {
     }
   };
 
-  return (
-    <div className={styles.searchModal}>
+  return createPortal(
+    <div role="dialog" aria-modal="true" className={styles.searchModal}>
       <div ref={modalContentRef} className={styles.searchContent}>
         <div className={styles.searchHeader}>
           <h2 className={styles.searchTitle}>Buscar Produto</h2>
@@ -60,7 +65,8 @@ export const SearchModal = ({ onClose, onSearchSubmit }) => {
           onKeyDown={handleKeyDown}
         />
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
