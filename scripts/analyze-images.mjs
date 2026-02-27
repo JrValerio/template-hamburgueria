@@ -67,9 +67,12 @@ function toPublicUrl(absPath) {
   return "/" + relative(join(ROOT, "public"), absPath).split(sep).join("/");
 }
 
-/** "burgers" → "burger"  |  "fries" → "side"  |  etc. */
+/** "burgers" → "burger"  |  "fries" → "side"  |  etc.
+ *  Anchors on the "menu" segment so path depth changes never break the index. */
 function folderHint(url) {
-  const folder = url.split("/")[3] ?? "";
+  const parts = url.split("/");
+  const idx = parts.indexOf("menu");
+  const folder = idx >= 0 ? (parts[idx + 1] ?? "") : "";
   const map = { burgers: "burger", drinks: "drink", desserts: "dessert", fries: "side" };
   return map[folder] ?? "unknown";
 }

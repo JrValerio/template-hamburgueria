@@ -36,23 +36,39 @@ if (!existsSync(ANALYSIS_FILE)) {
 }
 
 // ── Load data ─────────────────────────────────────────────────────────────────
-const analysis = JSON.parse(readFileSync(ANALYSIS_FILE, "utf8"));
+// Cache format: { version, items: { [url]: { hash, analysis, ... } } }
+const cache = JSON.parse(readFileSync(ANALYSIS_FILE, "utf8"));
+// Support both old flat format and new versioned format
+const analysisItems = cache.items ?? cache;
 const { fallbackProducts } = await import("../src/data/products.js");
 
-// ── Map boolean → tag slug ────────────────────────────────────────────────────
-function booleanTagsFromAnalysis(a) {
-  const map = {
-    isVegetarian: "vegetariano",
-    isVegan: "vegano",
-    hasBacon: "bacon",
-    hasCheese: "queijo",
-    hasEgg: "ovo",
-    isSpicy: "picante",
-    isPremium: "premium",
-  };
-  return Object.entries(map)
-    .filter(([key]) => a[key] === true)
-    .map(([, tag]) => tag);
+// ── Normalize: enforce diet/flag logical consistency ─────────────────────────
+function normalize(a) {
+  const n = structuredClone(a);
+  n.diet ??= { vegetarian: false, vegan: false };
+  n.flags ??= { containsBacon: false, containsCheese: false, hasEgg: false, spicy: false, isPremium: false };
+  if (n.diet.vegan) {
+    n.diet.vegetarian = true;
+    n.flags.containsBacon = false;
+    n.flags.containsCheese = false;
+    n.flags.hasEgg = false;
+  }
+  if (n.diet.vegetarian) n.flags.containsBacon = false;
+  return n;
+}
+
+// ── Map flags → tag slugs (new schema) ───────────────────────────────────────
+function booleanTagsFromAnalysis(raw) {
+  const a = normalize(raw);
+  const out = [];
+  if (a.diet.vegan) out.push("vegano");
+  else if (a.diet.vegetarian) out.push("vegetariano");
+  if (a.flags.containsBacon) out.push("bacon");
+  if (a.flags.containsCheese) out.push("queijo");
+  if (a.flags.hasEgg) out.push("ovo");
+  if (a.flags.spicy) out.push("picante");
+  if (a.flags.isPremium) out.push("premium");
+  return out;
 }
 
 // ── Apply patches ─────────────────────────────────────────────────────────────
@@ -61,23 +77,29 @@ let patched = 0;
 let skipped = 0;
 
 const updated = fallbackProducts.map((product) => {
-  const a = analysis[product.img];
+  const entry = analysisItems[product.img];
+  // Unwrap versioned cache: { hash, analysis, ... } or flat legacy entry
+  const a = entry?.analysis ?? entry;
 
   if (!a || a.error || SKIP_CONFIDENCE.has(a.confidence)) {
     skipped++;
     return product;
   }
 
-  // Merge tags: keep existing + add AI booleans + add AI explicit tags
+  // Merge tags: keep existing + normalized AI booleans + AI explicit tags
   const aiTags = [
     ...booleanTagsFromAnalysis(a),
     ...(Array.isArray(a.tags) ? a.tags : []),
   ];
   const mergedTags = [...new Set([...product.tags, ...aiTags])];
 
+  // New schema uses description_pt; fall back to suggestedDescription (legacy)
+  const description =
+    a.description_pt ?? a.suggestedDescription ?? product.description;
+
   const next = {
     ...product,
-    description: a.suggestedDescription ?? product.description,
+    description,
     tags: mergedTags,
   };
 

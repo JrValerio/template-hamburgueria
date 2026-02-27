@@ -87,7 +87,8 @@ function resolvePrice(topCategory, analysis, existingPrice) {
 
   const t = PRICE_TABLE[topCategory] ?? PRICE_TABLE.burger;
   const sub = (analysis.subtype ?? "").toLowerCase();
-  const fl = analysis.flags ?? {};
+  // analysis is already normalize()d at call site — flags always present
+  const fl = analysis.flags;
 
   if (topCategory === "burger") {
     if (fl.isPremium || sub.includes("truffle") || sub.includes("picanha")) return t.premium;
@@ -126,10 +127,33 @@ const CAT_MAP = {
   dessert: { sku: "SOB", label: "Sobremesas" },
 };
 
+// ── Normalize: enforce diet/flag logical consistency ─────────────────────────
+// LLMs occasionally hallucinate contradictory fields (vegan + containsCheese).
+// These hard rules close that gap before any tag generation or price lookup.
+function normalize(analysis) {
+  const a = structuredClone(analysis);
+  a.diet ??= { vegetarian: false, vegan: false };
+  a.flags ??= { containsBacon: false, containsCheese: false, hasEgg: false, spicy: false, isPremium: false };
+
+  if (a.diet.vegan) {
+    // Vegan implies vegetarian; vegan items never contain animal products
+    a.diet.vegetarian = true;
+    a.flags.containsBacon = false;
+    a.flags.containsCheese = false;
+    a.flags.hasEgg = false;
+  }
+  if (a.diet.vegetarian) {
+    // Vegetarian items never contain bacon
+    a.flags.containsBacon = false;
+  }
+  return a;
+}
+
 // ── Build boolean tags from analysis flags ────────────────────────────────────
 function booleanTags(analysis) {
-  const f = analysis.flags ?? {};
-  const d = analysis.diet ?? {};
+  // analysis must already be normalize()d before calling this
+  const f = analysis.flags;
+  const d = analysis.diet;
   const out = [];
   if (d.vegan) out.push("vegano");
   else if (d.vegetarian) out.push("vegetariano");
@@ -149,14 +173,20 @@ const REVIEW_THRESHOLD = 0.70;
 
 const rows = Object.entries(items)
   .filter(([, v]) => !v.error && v.analysis)
-  .map(([url, v]) => ({ url, ...v.analysis, _conf: v.analysis.confidence ?? 0 }))
+  .map(([url, v]) => {
+    const analysis = normalize(v.analysis);
+    return { url, ...analysis, _conf: analysis.confidence ?? 0 };
+  })
   .filter((r) => r.topCategory !== "unknown" && r._conf >= MIN_CONFIDENCE)
   .sort((a, b) => {
-    // Sort by category order, then by confidence desc
+    // 1. Category order
     const ai = CATEGORY_ORDER.indexOf(CAT_MAP[a.topCategory]?.label ?? "");
     const bi = CATEGORY_ORDER.indexOf(CAT_MAP[b.topCategory]?.label ?? "");
     if (ai !== bi) return ai - bi;
-    return b._conf - a._conf;
+    // 2. Confidence desc
+    if (b._conf !== a._conf) return b._conf - a._conf;
+    // 3. URL tie-break → fully deterministic across runs and engines
+    return a.url.localeCompare(b.url);
   });
 
 const products = [];
