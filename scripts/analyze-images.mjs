@@ -96,9 +96,8 @@ function saveCache() {
 }
 
 // ── Gemini client ─────────────────────────────────────────────────────────────
-// gemini-1.5-flash-8b: separate quota pool from gemini-2.0-flash, supports vision
 const genai = new GoogleGenerativeAI(apiKey);
-const model = genai.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
+const model = genai.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 const PROMPT = `You are a food-menu classifier for a Brazilian burger restaurant.
 Analyze the image and return ONLY a valid JSON object — no markdown, no explanation.
