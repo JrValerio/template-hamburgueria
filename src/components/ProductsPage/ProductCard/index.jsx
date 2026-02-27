@@ -12,6 +12,7 @@ export const ProductCard = ({ product, onAddToCart }) => {
           src={product.img}
           alt={product.name}
           className={styles.productImage}
+          loading="lazy"
         />
         <div className={styles.productDetails}>
           <h3 className={styles.productName}>{product.name}</h3>

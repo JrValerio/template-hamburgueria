@@ -13,6 +13,14 @@ dist
 dist-ssr
 *.local
 
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Vision pipeline cache — regenerate with npm run analyze:imgs
+scripts/image-analysis.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

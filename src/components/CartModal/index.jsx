@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { MdClose } from "react-icons/md";
 import { CartItemCard } from "./CartItemCard";
 import { useOutsideClick, useEscapePress } from "../../services/hooks";
@@ -55,10 +56,10 @@ export const CartModal = ({
     });
   };
 
-  return (
+  return createPortal(
     <>
       <div className={styles.modalBackdrop} />
-      <div role="dialog" className={styles.cartModal}>
+      <div role="dialog" aria-modal="true" className={styles.cartModal}>
         <div className={styles.cartContent} ref={modalRef}>
           <div className={styles.cartHeader}>
             <h2 className={styles.cartTitle}>Carrinho de compras</h2>
@@ -110,6 +111,7 @@ export const CartModal = ({
           </div>
         </div>
       </div>
-    </>
+    </>,
+    document.body
   );
 };

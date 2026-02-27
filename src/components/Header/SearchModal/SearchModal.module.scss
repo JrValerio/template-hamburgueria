@@ -2,9 +2,10 @@
 @import "../../../styles/typography.scss";
 
 .searchModal {
-  height: 50rem;
+  height: 100vh;
+  height: 100dvh;
   flex-shrink: 0;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +13,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 1000;
 
   .searchContent {
     background-color: $grey-0;
@@ -52,8 +53,6 @@
   }
 
   @media (min-width: 520px) {
-    height: 100%;
-
     .searchContent {
       max-width: 35rem;
     }
