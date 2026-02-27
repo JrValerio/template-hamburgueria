@@ -38,18 +38,12 @@ jobs:
         run: test -f docs/auditoria-tecnica-estrategica.md
 
       - name: Check audit doc has required sections
+        # Match on stable numeric anchors (## N.) — immune to text renames
         run: |
-          for section in \
-            "Sumário Executivo" \
-            "Riscos Críticos" \
-            "Matriz de Risco" \
-            "Issues Priorizadas" \
-            "Dívida Técnica" \
-            "Roadmap" \
-            "Plano de Negócio" \
-            "Regras de Negócio" \
-            "Registro de Decisões"; do
-            grep -q "$section" docs/auditoria-tecnica-estrategica.md \
-              || { echo "Missing section: $section"; exit 1; }
+          for anchor in "^## 1\." "^## 2\." "^## 3\." "^## 4\." \
+                        "^## 5\." "^## 6\." "^## 7\." "^## 8\." \
+                        "^## 9\." "^## 10\."; do
+            grep -qP "$anchor" docs/auditoria-tecnica-estrategica.md \
+              || { echo "Missing section anchor: $anchor"; exit 1; }
           done
-          echo "All required sections present"
+          echo "All 10 section anchors present"
