@@ -5,20 +5,16 @@ export const HomePage = () => {
   const { productList, addToCart, searchTerm, isLoading } = useOutletContext();
 
   const filteredProducts = productList.filter((p) =>
-    p.name.toLowerCase().includes(searchTerm)
+    (p.name ?? "").toLowerCase().includes(searchTerm)
   );
 
   return (
     <main>
-      {isLoading ? (
-        <p>Carregando produtos...</p>
-      ) : (
-        <ProductList
-          productList={filteredProducts}
-          onAddToCart={addToCart}
-          isLoading={isLoading}
-        />
-      )}
+      <ProductList
+        productList={filteredProducts}
+        onAddToCart={addToCart}
+        isLoading={isLoading}
+      />
     </main>
   );
 };
