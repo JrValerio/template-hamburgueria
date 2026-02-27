@@ -4,6 +4,7 @@ import { fetchProducts } from "../../services/api";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
 import { CartModal } from "../CartModal";
+import styles from "./AppLayout.module.scss";
 
 export function AppLayout() {
   const [productList, setProductList] = useState([]);
@@ -71,7 +72,7 @@ export function AppLayout() {
   const cartQuantity = cartList.reduce((acc, i) => acc + i.quantity, 0);
 
   return (
-    <>
+    <div className={styles.appShell}>
       <Header
         cartQuantity={cartQuantity}
         onSearchSubmit={(term) => setSearchTerm(term.toLowerCase())}
@@ -115,6 +116,6 @@ export function AppLayout() {
           onClose={() => setIsCartVisible(false)}
         />
       )}
-    </>
+    </div>
   );
 }
