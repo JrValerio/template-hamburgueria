@@ -11,7 +11,9 @@
     "gen:api-db": "node scripts/generate-api-db.mjs",
     "analyze:imgs": "node scripts/analyze-images.mjs",
     "apply:analysis": "node scripts/apply-analysis.mjs",
-    "catalog:update": "node scripts/apply-analysis.mjs && node scripts/generate-api-db.mjs"
+    "gen:catalog": "node scripts/gen-catalog-from-analysis.mjs",
+    "catalog:patch": "node scripts/apply-analysis.mjs && node scripts/generate-api-db.mjs",
+    "catalog:regen": "node scripts/gen-catalog-from-analysis.mjs"
   },
   "dependencies": {
     "axios": "^1.6.7",
