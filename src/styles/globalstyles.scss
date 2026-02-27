@@ -14,6 +14,11 @@ $color-text: #f0f0f0;
 $color-text-muted: #9e9e9e;
 $color-border: rgba(255, 255, 255, 0.08);
 
+// warning / offline — dark-theme safe
+$color-warning-bg:     rgba(255, 193, 7, 0.10);
+$color-warning-border: rgba(255, 193, 7, 0.25);
+$color-warning-text:   #f5c518;
+
 @mixin button-styles($bg-color: $color-primary, $text-color: white) {
   width: 6rem;
   height: 2.5rem;
