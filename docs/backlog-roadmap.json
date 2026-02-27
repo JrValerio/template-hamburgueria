@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-02-26",
+  "method": "WSJF",
+  "items": [
+    {
+      "id": "I-01",
+      "title": "Externalizar endpoint da API e fallback local",
+      "horizon": "0-3m",
+      "priority": "P0",
+      "owner": "Tech Lead FE",
+      "effort": "M",
+      "dependencies": [],
+      "wsjf": 7.5,
+      "acceptanceCriteria": [
+        "API base URL via VITE_API_BASE_URL",
+        "Fallback estático habilitável por flag",
+        "Erro de API não impede render de catálogo"
+      ],
+      "kpi": "Disponibilidade catálogo > 99.5%"
+    },
+    {
+      "id": "I-02",
+      "title": "Suíte mínima de testes unit e integração",
+      "horizon": "0-3m",
+      "priority": "P0",
+      "owner": "Eng. Frontend",
+      "effort": "M",
+      "dependencies": ["I-01"],
+      "wsjf": 5.2,
+      "acceptanceCriteria": [
+        "Fluxos de carrinho e busca cobertos",
+        "Pipeline falha em regressão"
+      ],
+      "kpi": "Cobertura fluxo crítico > 80%"
+    },
+    {
+      "id": "I-03",
+      "title": "Pipeline CI/CD com gates",
+      "horizon": "0-3m",
+      "priority": "P0",
+      "owner": "SRE",
+      "effort": "M",
+      "dependencies": ["I-02"],
+      "wsjf": 5.2,
+      "acceptanceCriteria": [
+        "Build/lint/test/SAST obrigatórios",
+        "Branch protection no main"
+      ],
+      "kpi": "Change failure rate < 15%"
+    },
+    {
+      "id": "I-04",
+      "title": "Observabilidade ponta a ponta",
+      "horizon": "0-3m",
+      "priority": "P1",
+      "owner": "SRE",
+      "effort": "M",
+      "dependencies": ["I-03"],
+      "wsjf": 5.0,
+      "acceptanceCriteria": [
+        "Alertas de erro client",
+        "Dashboard de Web Vitals",
+        "Runbook de incidente P1"
+      ],
+      "kpi": "MTTD < 10 min"
+    },
+    {
+      "id": "I-05",
+      "title": "Arquitetura IAM (AuthN/AuthZ)",
+      "horizon": "3-9m",
+      "priority": "P1",
+      "owner": "Arquiteto Principal",
+      "effort": "G",
+      "dependencies": ["I-03"],
+      "wsjf": 3.0,
+      "acceptanceCriteria": [
+        "OIDC com RBAC",
+        "Rotas premium protegidas"
+      ],
+      "kpi": "Taxa de login sucesso > 98%"
+    },
+    {
+      "id": "I-06",
+      "title": "Billing com webhooks idempotentes",
+      "horizon": "3-9m",
+      "priority": "P1",
+      "owner": "Backend Lead",
+      "effort": "G",
+      "dependencies": ["I-05"],
+      "wsjf": 1.9,
+      "acceptanceCriteria": [
+        "Cobrança recorrente ativa",
+        "Upgrade/downgrade com regras de ciclo",
+        "Idempotência por event_id"
+      ],
+      "kpi": "MRR > meta mensal"
+    },
+    {
+      "id": "I-07",
+      "title": "LGPD: retenção, consentimento e DSR",
+      "horizon": "3-9m",
+      "priority": "P1",
+      "owner": "Security/Legal",
+      "effort": "M",
+      "dependencies": ["I-05"],
+      "wsjf": 3.5,
+      "acceptanceCriteria": [
+        "Política de retenção implementada",
+        "Fluxo de exclusão auditável"
+      ],
+      "kpi": "100% DSR dentro do SLA"
+    },
+    {
+      "id": "I-08",
+      "title": "Programa de performance e crescimento",
+      "horizon": "9-24m",
+      "priority": "P2",
+      "owner": "Frontend Lead",
+      "effort": "M",
+      "dependencies": ["I-04", "I-06"],
+      "wsjf": 2.6,
+      "acceptanceCriteria": [
+        "LCP p75 < 2.5s",
+        "A/B de recomendação com significância"
+      ],
+      "kpi": "Conversão +15%"
+    }
+  ]
+}
