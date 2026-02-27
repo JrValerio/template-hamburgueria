@@ -96,8 +96,9 @@ function saveCache() {
 }
 
 // ── Gemini client ─────────────────────────────────────────────────────────────
+// gemini-1.5-flash-8b: separate quota pool from gemini-2.0-flash, supports vision
 const genai = new GoogleGenerativeAI(apiKey);
-const model = genai.getGenerativeModel({ model: "gemini-1.5-flash" });
+const model = genai.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
 
 const PROMPT = `You are a food-menu classifier for a Brazilian burger restaurant.
 Analyze the image and return ONLY a valid JSON object — no markdown, no explanation.
@@ -120,6 +121,14 @@ Rules:
 - tags: max 8, lowercase kebab-case
 - Return ONLY the JSON object`;
 
+// ── Parse retryDelay from a 429 error message ────────────────────────────────
+function parseRetryDelay(errMessage) {
+  // Response body contains: "retryDelay":"36s" or similar
+  const match = errMessage.match(/"retryDelay":"(\d+)s"/);
+  if (match) return parseInt(match[1], 10) * 1_000;
+  return null;
+}
+
 // ── Analyze one image with retry ──────────────────────────────────────────────
 async function analyzeOne(absPath, hint) {
   const ext = extname(absPath).toLowerCase();
@@ -135,8 +144,10 @@ async function analyzeOne(absPath, hint) {
       return JSON.parse(raw);
     } catch (err) {
       if (attempt === 3) throw err;
-      const wait = 1_500 * attempt;
-      console.warn(`  [retry ${attempt}] ${err.message} — waiting ${wait}ms`);
+      // Respect server-suggested retryDelay for 429; otherwise exponential backoff
+      const serverDelay = parseRetryDelay(err.message);
+      const wait = serverDelay ?? 10_000 * attempt;
+      console.warn(`  [retry ${attempt}] ${err.message.slice(0, 80)}... — waiting ${Math.round(wait / 1000)}s`);
       await new Promise((r) => setTimeout(r, wait));
     }
   }
