@@ -4,7 +4,7 @@ import { MdClose, MdCheckCircle } from "react-icons/md";
 import styles from "./SearchModal.module.scss";
 import { useEscapePress, useOutsideClick } from "../../../services/hooks";
 
-export const SearchModal = ({ onClose, onSearchSubmit, productList = [], onAddToCart }) => {
+export const SearchModal = ({ onClose, onSearchSubmit, productList = [], onAddToCart = () => {} }) => {
   const [searchValue, setSearchValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -16,7 +16,7 @@ export const SearchModal = ({ onClose, onSearchSubmit, productList = [], onAddTo
   useOutsideClick(modalContentRef, onClose);
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
@@ -29,13 +29,15 @@ export const SearchModal = ({ onClose, onSearchSubmit, productList = [], onAddTo
     return () => clearTimeout(id);
   }, [searchValue]);
 
-  // Filter locally from productList
+  // Filter locally from productList (name + category)
   useEffect(() => {
     const term = debouncedValue.trim().toLowerCase();
     if (term) {
-      const results = productList.filter((p) =>
-        p.name.toLowerCase().includes(term)
-      );
+      const results = productList.filter((p) => {
+        const name = p.name?.toLowerCase() ?? "";
+        const cat = p.category?.toLowerCase() ?? "";
+        return name.includes(term) || cat.includes(term);
+      });
       setSearchResults(results);
     } else {
       setSearchResults([]);
@@ -49,13 +51,9 @@ export const SearchModal = ({ onClose, onSearchSubmit, productList = [], onAddTo
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      onSearchSubmit(searchValue);
-      if (searchResults.length > 0) {
-        handleAddToCart(searchResults[0]);
-      } else {
-        onClose();
-      }
+    if (e.key === "Enter" && searchResults.length > 0) {
+      onSearchSubmit?.(searchValue);
+      handleAddToCart(searchResults[0]);
     }
   };
 
