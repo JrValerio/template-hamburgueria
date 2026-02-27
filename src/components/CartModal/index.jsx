@@ -8,7 +8,6 @@ import styles from "./CartModal.module.scss";
 export const CartModal = ({
   cartList,
   setCartList,
-  onRemoveItem,
   onClearCart,
   onClose,
 }) => {
@@ -97,11 +96,11 @@ export const CartModal = ({
                     key={product.id}
                     product={product}
                     onRemove={() => {
-                      const updated = cartList.filter(
-                        (item) => item.id !== product.id
-                      );
-                      setCartList(updated);
-                      onRemoveItem(product.id);
+                      setCartList((prev) => {
+                        const next = prev.filter((item) => item.id !== product.id);
+                        localStorage.setItem("cartList", JSON.stringify(next));
+                        return next;
+                      });
                     }}
                     onIncrement={onIncrement}
                     onDecrement={onDecrement}
