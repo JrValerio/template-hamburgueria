@@ -76,6 +76,27 @@
     gap: 0.5rem;
   }
 
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: $color-text-muted;
+    padding: 0.25rem;
+    border-radius: 4px;
+
+    &:hover {
+      color: $color-text;
+      background-color: $color-surface-2;
+    }
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
   .cartButton {
     position: relative;
     color: $color-text-muted;
@@ -125,6 +146,8 @@
     }
   }
 
+  // ---- end .header nested rules ----
+
   // @media (min-width: 520px) {
   //   .container {
   //     width: 58rem;
@@ -152,3 +175,103 @@
     margin-inline: auto;
   }
 }
+
+// ─── Drawer (portal — lives in document.body) ──────────────────────────────
+
+.drawerBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 997;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+.drawerBackdropOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  height: 100dvh;
+  width: min(280px, 80vw);
+  background-color: $color-surface;
+  border-right: 1px solid $color-border;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.22s ease;
+}
+
+.drawerOpen {
+  transform: translateX(0);
+}
+
+  .drawerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    height: 4.75rem;
+    flex-shrink: 0;
+    border-bottom: 1px solid $color-border;
+
+    .drawerLogo {
+      height: 2rem;
+      width: auto;
+    }
+
+    .drawerClose {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: $color-text-muted;
+      display: flex;
+      align-items: center;
+      padding: 0.25rem;
+      border-radius: 4px;
+
+      &:hover {
+        color: $color-text;
+        background-color: $color-surface-2;
+      }
+    }
+  }
+
+  .drawerLinks {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .drawerLink {
+    display: block;
+    padding: 0.875rem 1.25rem;
+    color: $color-text-muted;
+    text-decoration: none;
+    font-size: $font-size-body;
+    transition: color 0.15s, background-color 0.15s;
+
+    &:hover {
+      color: $color-text;
+      background-color: $color-surface-2;
+    }
+  }
+
+  .drawerLinkActive {
+    color: $color-primary;
+    border-left: 3px solid $color-primary;
+    padding-left: calc(1.25rem - 3px);
+    background-color: rgba(39, 174, 96, 0.06);
+  }
+}
+

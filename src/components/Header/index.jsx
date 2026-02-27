@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { NavLink } from "react-router-dom";
 import Logo from "../../assets/Logo.svg";
-import { MdSearch, MdShoppingCart } from "react-icons/md";
+import { MdClose, MdMenu, MdSearch, MdShoppingCart } from "react-icons/md";
 import { SearchModal } from "./SearchModal";
+import { useEscapePress } from "../../services/hooks";
 import styles from "./Header.module.scss";
 
 const NAV_LINKS = [
@@ -15,14 +17,50 @@ const NAV_LINKS = [
 
 export const Header = ({ cartQuantity, onSearchSubmit, onCartClick, productList, onAddToCart }) => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  // isDrawerMounted controls DOM presence; isDrawerOpen controls CSS state (for transition)
+  const [isDrawerMounted, setIsDrawerMounted] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSearchModalOpen(true);
+  const hamburgerRef = useRef(null);
+  const drawerCloseRef = useRef(null);
+
+  const openDrawer = () => setIsDrawerMounted(true);
+
+  const closeDrawer = () => {
+    if (!isDrawerMounted) return;
+    setIsDrawerOpen(false);
+    setTimeout(() => {
+      setIsDrawerMounted(false);
+      hamburgerRef.current?.focus();
+    }, 220);
   };
 
-  const navClass = ({ isActive }) =>
+  // Trigger enter transition after mount (needs a paint before class is added)
+  useEffect(() => {
+    if (!isDrawerMounted) return;
+    const id = requestAnimationFrame(() => setIsDrawerOpen(true));
+    return () => cancelAnimationFrame(id);
+  }, [isDrawerMounted]);
+
+  // Focus close button when drawer finishes opening
+  useEffect(() => {
+    if (isDrawerOpen) drawerCloseRef.current?.focus();
+  }, [isDrawerOpen]);
+
+  // Scroll lock
+  useEffect(() => {
+    if (!isDrawerOpen) return;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, [isDrawerOpen]);
+
+  useEscapePress(closeDrawer);
+
+  const desktopNavClass = ({ isActive }) =>
     isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink;
+
+  const drawerNavClass = ({ isActive }) =>
+    isActive ? `${styles.drawerLink} ${styles.drawerLinkActive}` : styles.drawerLink;
 
   return (
     <header className={styles.header}>
@@ -33,7 +71,7 @@ export const Header = ({ cartQuantity, onSearchSubmit, onCartClick, productList,
 
         <nav className={styles.nav} aria-label="Navegação principal">
           {NAV_LINKS.map(({ to, label, end }) => (
-            <NavLink key={to} to={to} end={end} className={navClass}>
+            <NavLink key={to} to={to} end={end} className={desktopNavClass}>
               {label}
             </NavLink>
           ))}
@@ -48,11 +86,24 @@ export const Header = ({ cartQuantity, onSearchSubmit, onCartClick, productList,
             <MdShoppingCart size={21} />
             <span className={styles.cartCount}>{cartQuantity}</span>
           </button>
-          <form onSubmit={handleSubmit} className={styles.searchForm}>
+          <form
+            onSubmit={(e) => { e.preventDefault(); setIsSearchModalOpen(true); }}
+            className={styles.searchForm}
+          >
             <button className={styles.mdButton} type="submit" aria-label="Buscar produto">
               <MdSearch size={21} />
             </button>
           </form>
+          <button
+            ref={hamburgerRef}
+            className={styles.hamburger}
+            onClick={openDrawer}
+            aria-label="Abrir menu"
+            aria-expanded={isDrawerOpen}
+            aria-controls="mobile-nav-drawer"
+          >
+            <MdMenu size={24} />
+          </button>
         </div>
       </div>
 
@@ -64,6 +115,49 @@ export const Header = ({ cartQuantity, onSearchSubmit, onCartClick, productList,
           onAddToCart={onAddToCart}
         />
       )}
+
+      {isDrawerMounted &&
+        createPortal(
+          <>
+            <div
+              className={`${styles.drawerBackdrop} ${isDrawerOpen ? styles.drawerBackdropOpen : ""}`}
+              onClick={closeDrawer}
+              aria-hidden="true"
+            />
+            <nav
+              id="mobile-nav-drawer"
+              className={`${styles.drawer} ${isDrawerOpen ? styles.drawerOpen : ""}`}
+              aria-label="Menu de navegação mobile"
+            >
+              <div className={styles.drawerHeader}>
+                <img src={Logo} alt="Logo Kenzie Burguer" className={styles.drawerLogo} />
+                <button
+                  ref={drawerCloseRef}
+                  className={styles.drawerClose}
+                  onClick={closeDrawer}
+                  aria-label="Fechar menu"
+                >
+                  <MdClose size={21} />
+                </button>
+              </div>
+              <ul className={styles.drawerLinks} role="list">
+                {NAV_LINKS.map(({ to, label, end }) => (
+                  <li key={to}>
+                    <NavLink
+                      to={to}
+                      end={end}
+                      className={drawerNavClass}
+                      onClick={closeDrawer}
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </>,
+          document.body
+        )}
     </header>
   );
 };
