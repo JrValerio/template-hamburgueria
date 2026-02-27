@@ -4,7 +4,7 @@ import { MdSearch, MdShoppingCart } from "react-icons/md";
 import { SearchModal } from "./SearchModal";
 import styles from "./Header.module.scss";
 
-export const Header = ({ cartQuantity, onSearchSubmit, onCartClick }) => {
+export const Header = ({ cartQuantity, onSearchSubmit, onCartClick, productList, onAddToCart }) => {
   const [value, setValue] = useState("");
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
@@ -41,6 +41,8 @@ export const Header = ({ cartQuantity, onSearchSubmit, onCartClick }) => {
         <SearchModal
           onClose={handleCloseSearchModal}
           onSearchSubmit={onSearchSubmit}
+          productList={productList}
+          onAddToCart={onAddToCart}
         />
       )}
     </header>

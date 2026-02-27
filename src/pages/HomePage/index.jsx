@@ -109,6 +109,8 @@ export const HomePage = () => {
           (total, item) => total + item.quantity,
           0
         )}
+        productList={productList}
+        onAddToCart={addToCart}
       />
 
       {isOffline && (
