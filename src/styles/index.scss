@@ -1,3 +1,8 @@
 @import "./reset.scss";
 @import "./globalstyles.scss";
-@import "./typography.scss"
+@import "./typography.scss";
+
+body {
+  background-color: $color-bg;
+  color: $color-text;
+}
