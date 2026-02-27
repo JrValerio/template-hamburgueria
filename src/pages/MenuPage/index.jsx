@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 import { ProductList } from "../../components/ProductsPage/ProductList";
 
-export const HomePage = () => {
+export const MenuPage = () => {
   const { productList, addToCart, searchTerm, isLoading } = useOutletContext();
 
   const filteredProducts = productList.filter((p) =>
@@ -10,6 +10,9 @@ export const HomePage = () => {
 
   return (
     <main>
+      <h1 style={{ padding: "2rem 1rem 1rem", color: "var(--color-text, #f0f0f0)" }}>
+        Cardápio
+      </h1>
       <ProductList
         productList={filteredProducts}
         onAddToCart={addToCart}
