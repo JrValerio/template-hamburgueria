@@ -144,7 +144,6 @@ export const HomePage = () => {
           <CartModal
             cartList={cartList}
             setCartList={setCartList}
-            onRemoveItem={removeFromCart}
             onClearCart={clearCart}
             onClose={() => setIsCartVisible(false)}
           />
