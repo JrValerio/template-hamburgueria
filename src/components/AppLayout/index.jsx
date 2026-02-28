@@ -4,6 +4,7 @@ import { fetchProducts } from "../../services/api";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
 import { CartModal } from "../CartModal";
+import { OfflineBanner } from "../OfflineBanner";
 import styles from "./AppLayout.module.scss";
 
 export function AppLayout() {
@@ -81,21 +82,7 @@ export function AppLayout() {
         onAddToCart={addToCart}
       />
 
-      {isOffline && (
-        <div
-          role="status"
-          style={{
-            background: "#fff3cd",
-            borderBottom: "1px solid #ffc107",
-            color: "#856404",
-            fontSize: "0.85rem",
-            padding: "8px 16px",
-            textAlign: "center",
-          }}
-        >
-          Catálogo em modo offline — exibindo dados locais.
-        </div>
-      )}
+      {isOffline && <OfflineBanner />}
 
       <Outlet
         context={{

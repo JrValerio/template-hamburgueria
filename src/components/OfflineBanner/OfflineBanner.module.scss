@@ -1,0 +1,24 @@
+@import "../../styles/globalstyles.scss";
+@import "../../styles/typography.scss";
+
+.banner {
+  background: $color-warning-bg;
+  border-bottom: 1px solid $color-warning-border;
+  color: $color-warning-text;
+  padding: 0.625rem 1rem;
+  font-size: $font-size-caption;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.title {
+  font-weight: $font-weight-semibold;
+}
+
+.text {
+  color: $color-warning-text;
+  opacity: 0.95;
+}
