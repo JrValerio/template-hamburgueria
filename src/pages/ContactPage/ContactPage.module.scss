@@ -3,23 +3,104 @@
 
 .page {
   padding: 2rem 1.25rem 3rem;
-  max-width: 36rem;
+  max-width: 72rem;
+  margin: 0 auto;
 
   @media (min-width: 768px) {
     padding: 2.5rem 2rem 3rem;
   }
+}
 
-  h1 {
-    color: $color-text;
-    font-size: $font-size-h2;
-    margin-bottom: 0;
+.heading {
+  color: $color-text;
+  font-size: $font-size-h2;
+  margin-bottom: 1.5rem;
+}
+
+// ─── Two-column grid ───────────────────────────────────────────────────────
+
+.grid {
+  display: grid;
+  gap: 2.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
   }
+}
+
+.formCol {
+  min-width: 0;
+}
+
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.infoTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: $color-text;
+  font-size: $font-size-body;
+  font-weight: $font-weight-semibold;
+  margin: 0;
+}
+
+.infoText {
+  color: $color-text-muted;
+  font-size: $font-size-body;
+  margin: 0;
+}
+
+.infoLink {
+  color: $color-primary;
+  font-size: $font-size-body;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.hoursList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.hoursItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: $font-size-caption;
+}
+
+.hoursDay {
+  color: $color-text-muted;
+}
+
+.hoursTime {
+  color: $color-text;
+  font-weight: $font-weight-semibold;
+  white-space: nowrap;
 }
 
 // ─── Form ──────────────────────────────────────────────────────────────────
 
 .form {
-  margin-top: 1.5rem;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;

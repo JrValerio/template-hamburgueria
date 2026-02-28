@@ -1,12 +1,7 @@
 import { Link } from "react-router-dom";
 import { MdAccessTime, MdDeliveryDining, MdLocationOn } from "react-icons/md";
+import { STORE_HOURS } from "../../data/store";
 import styles from "./DeliveryPage.module.scss";
-
-const HOURS = [
-  { days: "Segunda a Sexta", time: "11h às 23h" },
-  { days: "Sábado", time: "11h às 00h" },
-  { days: "Domingo e Feriados", time: "12h às 22h" },
-];
 
 const NEIGHBORHOODS = [
   "Centro",
@@ -36,7 +31,7 @@ export const DeliveryPage = () => {
             </h2>
           </div>
           <ul className={styles.list}>
-            {HOURS.map(({ days, time }) => (
+            {STORE_HOURS.map(({ days, time }) => (
               <li key={days} className={styles.listItem}>
                 <span className={styles.listLabel}>{days}</span>
                 <span className={styles.listValue}>{time}</span>
