@@ -2,10 +2,10 @@
 @import "../../styles/typography.scss";
 
 .page {
-  padding: 2rem 1.25rem;
+  padding: 2rem 1.25rem 3rem;
 
   @media (min-width: 768px) {
-    padding: 2.5rem 2rem;
+    padding: 2.5rem 2rem 3rem;
   }
 
   h1 {
@@ -18,15 +18,131 @@
 .subtitle {
   color: $color-text-muted;
   font-size: $font-size-body;
+  margin: 0 0 2rem;
+}
+
+// ─── Info grid ─────────────────────────────────────────────────────────────
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.cardFull {
+  @media (min-width: 640px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $color-primary;
+  margin-bottom: 1rem;
+}
+
+.cardTitle {
+  color: $color-text;
+  font-size: $font-size-h3;
+  font-weight: $font-weight-semibold;
   margin: 0;
 }
 
+// ─── List rows ─────────────────────────────────────────────────────────────
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: $font-size-body;
+  border-bottom: 1px solid $color-border;
+  padding-bottom: 0.5rem;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.listLabel {
+  color: $color-text-muted;
+}
+
+.listValue {
+  color: $color-text;
+  font-weight: $font-weight-semibold;
+  white-space: nowrap;
+}
+
+// ─── Neighborhoods ─────────────────────────────────────────────────────────
+
+.neighborhoods {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.neighborhoodTag {
+  background-color: $color-surface-2;
+  border: 1px solid $color-border;
+  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  font-size: $font-size-caption;
+  color: $color-text-muted;
+}
+
+.areaNote {
+  font-size: $font-size-caption;
+  color: $color-text-muted;
+  margin: 0;
+}
+
+.inlineLink {
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ─── CTA ───────────────────────────────────────────────────────────────────
+
 .cta {
   @include button-styles($color-primary, white);
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.625rem 1.5rem;
+  display: inline-flex;
+  padding: 0.75rem 2rem;
   border-radius: 8px;
   text-decoration: none;
   font-weight: $font-weight-semibold;
+  width: auto;
+  height: auto;
+  font-size: $font-size-body;
 }
