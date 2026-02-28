@@ -12,6 +12,7 @@ export const CartModal = ({
   onClose,
 }) => {
   const sidebarRef = useRef();
+  const closeTimeoutRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [checkoutDone, setCheckoutDone] = useState(false);
 
@@ -21,10 +22,10 @@ export const CartModal = ({
     return () => cancelAnimationFrame(id);
   }, []);
 
-  // Animate out then unmount
+  // Animate out then unmount — ref prevents stale timeout closing a new instance
   const handleClose = () => {
     setIsVisible(false);
-    setTimeout(onClose, 250);
+    closeTimeoutRef.current = setTimeout(onClose, 250);
   };
 
   useOutsideClick(sidebarRef, handleClose);
@@ -34,6 +35,7 @@ export const CartModal = ({
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
+      clearTimeout(closeTimeoutRef.current);
     };
   }, []);
 
