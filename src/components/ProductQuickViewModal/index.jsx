@@ -59,6 +59,7 @@ export const ProductQuickViewModal = ({ product, onAddToCart, onClose }) => {
               alt={product.name}
               className={styles.image}
               loading="lazy"
+              decoding="async"
             />
           )}
 

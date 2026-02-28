@@ -95,6 +95,7 @@ export const SearchModal = ({ onClose, onSearchSubmit, productList = [], onAddTo
                     alt={product.name}
                     className={styles.resultImg}
                     loading="lazy"
+                    decoding="async"
                   />
                   <div className={styles.resultInfo}>
                     <span className={styles.resultName}>{product.name}</span>
