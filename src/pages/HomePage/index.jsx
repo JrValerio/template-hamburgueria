@@ -7,7 +7,7 @@ import styles from "./HomePage.module.scss";
 const FEATURED_IDS = new Set([1, 2, 54, 73, 90, 95]);
 
 export const HomePage = () => {
-  const { productList, addToCart, searchTerm, isLoading } = useOutletContext();
+  const { productList, addToCart, searchTerm, isLoading, openQuickView } = useOutletContext();
 
   // Search mode: flat filtered list
   if (searchTerm) {
@@ -19,6 +19,7 @@ export const HomePage = () => {
         <ProductList
           productList={filtered}
           onAddToCart={addToCart}
+          onOpenProduct={openQuickView}
           isLoading={isLoading}
         />
       </main>
@@ -69,6 +70,7 @@ export const HomePage = () => {
         <ProductList
           productList={displayFeatured}
           onAddToCart={addToCart}
+          onOpenProduct={openQuickView}
           isLoading={isLoading}
         />
       </section>

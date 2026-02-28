@@ -5,6 +5,7 @@ import { Header } from "../Header";
 import { Footer } from "../Footer";
 import { CartModal } from "../CartModal";
 import { OfflineBanner } from "../OfflineBanner";
+import { ProductQuickViewModal } from "../ProductQuickViewModal";
 import styles from "./AppLayout.module.scss";
 
 export function AppLayout() {
@@ -23,6 +24,7 @@ export function AppLayout() {
 
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const load = async () => {
@@ -90,6 +92,7 @@ export function AppLayout() {
           addToCart,
           searchTerm,
           isLoading,
+          openQuickView: setSelectedProduct,
         }}
       />
 
@@ -101,6 +104,14 @@ export function AppLayout() {
           setCartList={setCartList}
           onClearCart={clearCart}
           onClose={() => setIsCartVisible(false)}
+        />
+      )}
+
+      {selectedProduct && (
+        <ProductQuickViewModal
+          product={selectedProduct}
+          onAddToCart={addToCart}
+          onClose={() => setSelectedProduct(null)}
         />
       )}
     </div>

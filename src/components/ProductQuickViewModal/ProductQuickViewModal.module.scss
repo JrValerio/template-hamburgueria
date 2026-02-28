@@ -1,0 +1,154 @@
+@import "../../styles/globalstyles.scss";
+@import "../../styles/typography.scss";
+
+// ─── Backdrop ────────────────────────────────────────────────────────────────
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 1001;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.backdropVisible {
+  opacity: 1;
+}
+
+// ─── Centering wrapper ────────────────────────────────────────────────────────
+
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+// ─── Modal box ───────────────────────────────────────────────────────────────
+
+.modal {
+  position: relative;
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 38rem;
+  max-height: calc(100dvh - 2.5rem);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+
+  // Entry animation
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  &.modalVisible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// ─── Close button ─────────────────────────────────────────────────────────────
+
+.closeButton {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  z-index: 1;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.65);
+  }
+}
+
+// ─── Image ───────────────────────────────────────────────────────────────────
+
+.image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px 16px 0 0;
+  flex-shrink: 0;
+
+  @media (min-width: 480px) {
+    height: 260px;
+  }
+}
+
+// ─── Body ────────────────────────────────────────────────────────────────────
+
+.body {
+  padding: 1.25rem 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  flex: 1;
+}
+
+.category {
+  color: $color-text-muted;
+  font-size: $font-size-caption;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.name {
+  color: $color-text;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.description {
+  color: $color-text-muted;
+  font-size: $font-size-body;
+  margin: 0.25rem 0 0;
+  line-height: 1.5;
+}
+
+// ─── Footer ──────────────────────────────────────────────────────────────────
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-top: 1px solid $color-border;
+  margin-top: 1rem;
+}
+
+.price {
+  color: $color-primary;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-bold;
+  flex-shrink: 0;
+}
+
+.addButton {
+  @include button-styles($color-primary, white);
+  border-radius: 8px;
+  flex: 1;
+  white-space: nowrap;
+}
