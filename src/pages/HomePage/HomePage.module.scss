@@ -18,8 +18,8 @@
   @media (min-width: 768px) {
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    gap: 3rem;
+    justify-content: center;
+    gap: 2rem;
     padding: 5rem 2rem 4rem;
   }
 }
@@ -54,13 +54,13 @@
 .badge {
   display: inline-block;
   align-self: flex-start;
-  background-color: rgba($color-primary, 0.12);
+  background-color: rgba($color-primary, 0.18);
   color: $color-primary;
   font-size: $font-size-caption;
   font-weight: $font-weight-semibold;
   padding: 0.3rem 0.875rem;
   border-radius: 999px;
-  border: 1px solid rgba($color-primary, 0.25);
+  border: 1px solid rgba($color-primary, 0.38);
 }
 
 .headline {
