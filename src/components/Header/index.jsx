@@ -84,7 +84,13 @@ export const Header = ({ cartQuantity, onSearchSubmit, onCartClick, productList,
             aria-label={`Carrinho, ${cartQuantity} ${cartQuantity === 1 ? "item" : "itens"}`}
           >
             <MdShoppingCart size={21} />
-            <span className={styles.cartCount}>{cartQuantity}</span>
+            <span
+              className={styles.cartCount}
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              {cartQuantity}
+            </span>
           </button>
           <form
             onSubmit={(e) => { e.preventDefault(); setIsSearchModalOpen(true); }}
