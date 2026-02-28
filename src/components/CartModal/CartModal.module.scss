@@ -1,170 +1,165 @@
 @import "../../styles/globalstyles.scss";
 @import "../../styles/typography.scss";
 
+// ─── Backdrop ────────────────────────────────────────────────────────────────
+
 .modalBackdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 999;
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
-.cartModal {
-  height: 100vh;
-  height: 100dvh;
-  background-color: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.backdropVisible {
+  opacity: 1;
+}
+
+// ─── Sidebar ─────────────────────────────────────────────────────────────────
+
+.cartSidebar {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
+  height: 100vh;
+  height: 100dvh;
+  width: min(26rem, 100vw);
+  background-color: $color-surface;
+  border-left: 1px solid $color-border;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.35);
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
 
-  .cartContent {
-    background-color: $color-surface;
-    border: 1px solid $color-border;
-    border-radius: 8px;
-    width: calc(100vw - 2rem);
-    max-width: 25rem;
-    max-height: calc(100dvh - 3rem);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  .cartHeader {
+    background-color: $color-primary;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    flex-shrink: 0;
+
+    .cartTitle {
+      font-size: $font-size-h3;
+      font-weight: $font-weight-bold;
+      margin: 0;
+    }
+
+    .closeButton {
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+    }
+  }
+
+  .emptyState {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem 1.5rem;
+    flex: 1;
 
-    .cartHeader {
-      background-color: $color-primary;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
-      color: white;
+    .emptyIcon {
+      color: $color-text-muted;
+      opacity: 0.4;
+    }
+
+    .emptyText {
+      color: $color-text-muted;
+      font-size: $font-size-body;
+      margin: 0;
+    }
+
+    .emptyCtaButton {
+      @include button-styles($color-primary, white);
+      border-radius: 8px;
+      padding: 0.625rem 1.5rem;
+    }
+  }
+
+  .cartItems {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .cartFooter {
+    flex-shrink: 0;
+    border-top: 1px solid $color-border;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .cartTotal {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 20px;
-      flex-shrink: 0;
 
-      .cartTitle {
-        font-size: $font-size-h3;
-        font-weight: $font-weight-bold;
-        margin: 0;
-      }
-
-      .closeButton {
-        color: white;
-        background: none;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        padding: 4px;
-        border-radius: 4px;
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.15);
-        }
-      }
-    }
-
-    .emptyState {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 3rem 1.5rem;
-
-      .emptyIcon {
-        color: $color-text-muted;
-        opacity: 0.4;
-      }
-
-      .emptyText {
-        color: $color-text-muted;
-        font-size: $font-size-body;
-        margin: 0;
-      }
-
-      .emptyCtaButton {
-        @include button-styles($color-primary, white);
-        border-radius: 8px;
-        padding: 0.625rem 1.5rem;
-      }
-    }
-
-    .cartItems {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      overflow-y: auto;
-      flex: 1;
-    }
-
-    .cartFooter {
-      flex-shrink: 0;
-      border-top: 1px solid $color-border;
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-
-      .cartTotal {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .totalLabel {
-          color: $color-text;
-          font-size: $font-size-body;
-          font-weight: $font-weight-semibold;
-        }
-
-        .totalValue {
-          color: $color-primary;
-          font-size: 1.25rem;
-          font-weight: $font-weight-bold;
-        }
-      }
-
-      .checkoutButton {
-        @include button-styles($color-primary, white);
-        border-radius: 8px;
-        width: 100%;
-        height: 2.875rem;
-        padding: 0 1.25rem;
-        justify-content: center;
+      .totalLabel {
+        color: $color-text;
         font-size: $font-size-body;
         font-weight: $font-weight-semibold;
-
-        &:disabled {
-          opacity: 0.7;
-          cursor: default;
-        }
       }
 
-      .clearButton {
-        background: none;
-        border: none;
-        color: $color-text-muted;
-        font-size: $font-size-caption;
-        cursor: pointer;
-        align-self: center;
-        padding: 0.25rem 0.5rem;
-        border-radius: 4px;
+      .totalValue {
+        color: $color-primary;
+        font-size: 1.25rem;
+        font-weight: $font-weight-bold;
+      }
+    }
 
-        &:hover {
-          color: $color-secondary;
-        }
+    .checkoutButton {
+      @include button-styles($color-primary, white);
+      border-radius: 8px;
+      width: 100%;
+      height: 2.875rem;
+      padding: 0 1.25rem;
+      justify-content: center;
+      font-size: $font-size-body;
+      font-weight: $font-weight-semibold;
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: default;
+      }
+    }
+
+    .clearButton {
+      background: none;
+      border: none;
+      color: $color-text-muted;
+      font-size: $font-size-caption;
+      cursor: pointer;
+      align-self: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+
+      &:hover {
+        color: $color-secondary;
       }
     }
   }
+}
 
-  @media (min-width: 520px) {
-    .cartContent {
-      max-width: 35rem;
-    }
-  }
+.cartSidebarOpen {
+  transform: translateX(0);
 }
