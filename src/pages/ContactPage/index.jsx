@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import { MdAccessTime, MdLocationOn, MdPhone } from "react-icons/md";
+import { STORE_ADDRESS, STORE_HOURS, STORE_PHONE_DISPLAY, STORE_PHONE_TEL } from "../../data/store";
 import styles from "./ContactPage.module.scss";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -51,9 +53,11 @@ export const ContactPage = () => {
 
   return (
     <main className={styles.page}>
-      <h1>Contato</h1>
+      <h1 className={styles.heading}>Contato</h1>
 
-      {sent ? (
+      <div className={styles.grid}>
+        <div className={styles.formCol}>
+        {sent ? (
         <div
           ref={successRef}
           tabIndex={-1}
@@ -151,7 +155,44 @@ export const ContactPage = () => {
             {isSubmitting ? "Enviando…" : "Enviar mensagem"}
           </button>
         </form>
-      )}
+        )}
+        </div>
+
+        <aside className={styles.infoCol}>
+          <section className={styles.infoSection}>
+            <h2 className={styles.infoTitle}>
+              <MdLocationOn size={18} aria-hidden="true" />
+              Endereço
+            </h2>
+            <p className={styles.infoText}>{STORE_ADDRESS}</p>
+          </section>
+
+          <section className={styles.infoSection}>
+            <h2 className={styles.infoTitle}>
+              <MdAccessTime size={18} aria-hidden="true" />
+              Horários
+            </h2>
+            <ul className={styles.hoursList}>
+              {STORE_HOURS.map(({ days, time }) => (
+                <li key={days} className={styles.hoursItem}>
+                  <span className={styles.hoursDay}>{days}</span>
+                  <span className={styles.hoursTime}>{time}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className={styles.infoSection}>
+            <h2 className={styles.infoTitle}>
+              <MdPhone size={18} aria-hidden="true" />
+              Telefone
+            </h2>
+            <a href={`tel:${STORE_PHONE_TEL}`} className={styles.infoLink}>
+              {STORE_PHONE_DISPLAY}
+            </a>
+          </section>
+        </aside>
+      </div>
     </main>
   );
 };
