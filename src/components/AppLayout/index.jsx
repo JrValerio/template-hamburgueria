@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { fetchProducts } from "../../services/api";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
@@ -72,6 +72,12 @@ export function AppLayout() {
     setCartList([]);
     localStorage.removeItem("cartList");
   };
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    setIsCartVisible(false);
+    setSelectedProduct(null);
+  }, [pathname]);
 
   const cartQuantity = cartList.reduce((acc, i) => acc + i.quantity, 0);
 
