@@ -60,7 +60,12 @@ export const HomePage = () => {
 
       {/* ── Destaques ── */}
       <section className={styles.featuredSection} aria-label="Destaques">
-        <h2 className={styles.sectionHeading}>Destaques</h2>
+        <div className={styles.featuredHeadingRow}>
+          <h2 className={styles.featuredHeading}>Destaques</h2>
+          <Link to="/cardapio" className={styles.viewAllLink}>
+            Ver todos →
+          </Link>
+        </div>
         <ProductList
           productList={displayFeatured}
           onAddToCart={addToCart}
