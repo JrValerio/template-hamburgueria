@@ -1,0 +1,62 @@
+@import "../../styles/globalstyles.scss";
+@import "../../styles/typography.scss";
+
+.hero {
+  padding: 3rem 1.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    padding: 4rem 2rem 2.5rem;
+    max-width: 42rem;
+  }
+}
+
+.headline {
+  color: $color-text;
+  font-size: $font-size-h1;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.sub {
+  color: $color-text-muted;
+  font-size: $font-size-body;
+  margin: 0;
+  max-width: 32rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.ctaPrimary {
+  @include button-styles($color-primary, white);
+  border-radius: 8px;
+  padding: 0.75rem 1.75rem;
+  width: auto;
+  height: auto;
+  font-size: $font-size-body;
+  text-decoration: none;
+}
+
+.ctaSecondary {
+  @include button-styles(transparent, $color-text-muted);
+  border-radius: 8px;
+  padding: 0.75rem 1.75rem;
+  width: auto;
+  height: auto;
+  font-size: $font-size-body;
+  text-decoration: none;
+  border-color: $color-border;
+
+  &:hover {
+    color: $color-text;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
