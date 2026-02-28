@@ -1,10 +1,11 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppLayout } from "./components/AppLayout";
 import { HomePage } from "./pages/HomePage";
 import { MenuPage } from "./pages/MenuPage";
 import { OffersPage } from "./pages/OffersPage";
 import { DeliveryPage } from "./pages/DeliveryPage";
 import { ContactPage } from "./pages/ContactPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 import "./styles/index.scss";
 
 export function App() {
@@ -17,8 +18,8 @@ export function App() {
           <Route path="/ofertas" element={<OffersPage />} />
           <Route path="/delivery" element={<DeliveryPage />} />
           <Route path="/contato" element={<ContactPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

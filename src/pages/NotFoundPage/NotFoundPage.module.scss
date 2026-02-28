@@ -1,0 +1,70 @@
+@import "../../styles/globalstyles.scss";
+@import "../../styles/typography.scss";
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5rem 1.25rem;
+  min-height: 60vh;
+  gap: 1rem;
+}
+
+.code {
+  font-size: clamp(5rem, 20vw, 9rem);
+  font-weight: $font-weight-bold;
+  line-height: 1;
+  color: $color-primary;
+  opacity: 0.25;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+.heading {
+  color: $color-text;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-bold;
+  margin: 0;
+}
+
+.sub {
+  color: $color-text-muted;
+  font-size: $font-size-body;
+  margin: 0 0 0.5rem;
+  max-width: 36ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.btnPrimary {
+  @include button-styles($color-primary, white);
+  border-radius: 8px;
+  padding: 0.75rem 1.75rem;
+  width: auto;
+  height: auto;
+  font-size: $font-size-body;
+  text-decoration: none;
+}
+
+.btnSecondary {
+  @include button-styles(transparent, $color-text-muted);
+  border-radius: 8px;
+  padding: 0.75rem 1.75rem;
+  width: auto;
+  height: auto;
+  font-size: $font-size-body;
+  text-decoration: none;
+  border-color: $color-border;
+
+  &:hover {
+    color: $color-text;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
