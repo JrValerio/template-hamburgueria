@@ -1,6 +1,8 @@
 @import "../../styles/globalstyles.scss";
 @import "../../styles/typography.scss";
 
+// ─── Hero ───────────────────────────────────────────────────────────────────
+
 .hero {
   padding: 3rem 1.25rem 2rem;
   display: flex;
@@ -58,5 +60,39 @@
   &:hover {
     color: $color-text;
     border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+// ─── Sections ───────────────────────────────────────────────────────────────
+
+.categoriesSection,
+.featuredSection {
+  padding-bottom: 2rem;
+}
+
+.sectionHeading {
+  padding: 1.5rem 1.25rem 0.75rem;
+  color: $color-text;
+  font-size: $font-size-h3;
+  font-weight: $font-weight-bold;
+  border-bottom: 1px solid $color-border;
+  margin: 0;
+
+  @media (min-width: 768px) {
+    padding: 1.75rem 2rem 0.75rem;
+  }
+}
+
+// ─── Category grid ──────────────────────────────────────────────────────────
+
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 1rem 2rem;
   }
 }
