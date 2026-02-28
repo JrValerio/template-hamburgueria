@@ -1,0 +1,98 @@
+@import "../../../styles/globalstyles.scss";
+
+// ─── Shimmer animation ──────────────────────────────────────────────────────
+
+@keyframes shimmer {
+  0%   { background-position:  200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@mixin shimmer-block {
+  background: linear-gradient(
+    90deg,
+    $color-surface    25%,
+    $color-surface-2  37%,
+    $color-surface    63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 4px;
+}
+
+// ─── Container — mirrors ProductCard responsive sizing ──────────────────────
+
+.cardContainer {
+  display: flex;
+  flex: 0 0 auto;
+  padding: 20px;
+  max-width: 100%;
+
+  @media (min-width: 520px) {
+    width: calc((100% - 60px) / 2);
+  }
+
+  @media (min-width: 768px) {
+    width: calc((100% - 80px) / 3);
+  }
+
+  @media (min-width: 1024px) {
+    width: calc((100% - 100px) / 4);
+  }
+}
+
+// ─── Card shell ─────────────────────────────────────────────────────────────
+
+.productCard {
+  width: 100%;
+  max-width: 300px;
+  min-height: 320px;
+  background: $color-surface;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid $color-border;
+  display: flex;
+  flex-direction: column;
+}
+
+// ─── Skeleton blocks ────────────────────────────────────────────────────────
+
+.image {
+  @include shimmer-block;
+  width: 300px;
+  height: 150px;
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+.details {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lineLong {
+  @include shimmer-block;
+  height: 18px;
+  width: 65%;
+}
+
+.lineShort {
+  @include shimmer-block;
+  height: 14px;
+  width: 40%;
+}
+
+.lineMid {
+  @include shimmer-block;
+  height: 16px;
+  width: 50%;
+}
+
+.button {
+  @include shimmer-block;
+  height: 40px;
+  width: 100%;
+  margin-top: auto;
+  border-radius: 8px;
+}
