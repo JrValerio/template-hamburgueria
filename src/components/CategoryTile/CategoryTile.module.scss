@@ -1,0 +1,31 @@
+@import "../../styles/globalstyles.scss";
+@import "../../styles/typography.scss";
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.125rem;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-left: 3px solid $color-primary;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    background-color: $color-surface-2;
+    box-shadow: 0 2px 12px rgba(39, 174, 96, 0.12);
+  }
+}
+
+.label {
+  font-size: $font-size-body;
+  font-weight: $font-weight-semibold;
+  color: $color-text;
+}
+
+.arrow {
+  color: $color-primary;
+  flex-shrink: 0;
+}
