@@ -4,7 +4,7 @@ import styles from "./ProductList.module.scss";
 
 const SKELETON_COUNT = 6;
 
-export const ProductList = ({ productList, onAddToCart, isLoading }) => {
+export const ProductList = ({ productList, onAddToCart, onOpenProduct, isLoading }) => {
   if (isLoading) {
     return (
       <div className={styles.productList} aria-busy="true">
@@ -26,6 +26,7 @@ export const ProductList = ({ productList, onAddToCart, isLoading }) => {
           key={product.id}
           product={product}
           onAddToCart={onAddToCart}
+          onOpen={onOpenProduct}
         />
       ))}
     </div>

@@ -4,7 +4,7 @@ import { ProductList } from "../../components/ProductsPage/ProductList";
 import styles from "./MenuPage.module.scss";
 
 export const MenuPage = () => {
-  const { productList, addToCart, searchTerm, isLoading } = useOutletContext();
+  const { productList, addToCart, searchTerm, isLoading, openQuickView } = useOutletContext();
 
   const filteredProducts = productList.filter((p) =>
     (p.name ?? "").toLowerCase().includes(searchTerm)
@@ -31,6 +31,7 @@ export const MenuPage = () => {
         <ProductList
           productList={filteredProducts}
           onAddToCart={addToCart}
+          onOpenProduct={openQuickView}
           isLoading={isLoading}
         />
       ) : isEmpty ? (
@@ -45,6 +46,7 @@ export const MenuPage = () => {
               <ProductList
                 productList={items}
                 onAddToCart={addToCart}
+                onOpenProduct={openQuickView}
                 isLoading={false}
               />
             </section>

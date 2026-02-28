@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { MdCheck } from "react-icons/md";
 import styles from "./ProductCard.module.scss";
 
-export const ProductCard = ({ product, onAddToCart }) => {
+export const ProductCard = ({ product, onAddToCart, onOpen }) => {
   const [isAdded, setIsAdded] = useState(false);
   const timeoutRef = useRef(null);
 
@@ -19,7 +19,11 @@ export const ProductCard = ({ product, onAddToCart }) => {
 
   return (
     <div className={styles.cardContainer}>
-      <div className={styles.productCard}>
+      <div
+        className={styles.productCard}
+        onClick={onOpen ? () => onOpen(product) : undefined}
+        style={onOpen ? { cursor: "pointer" } : undefined}
+      >
         <img
           src={product.img}
           alt={product.name}
@@ -37,7 +41,7 @@ export const ProductCard = ({ product, onAddToCart }) => {
           </p>
           <button
             className={isAdded ? styles.addButtonAdded : styles.addButton}
-            onClick={handleAddClick}
+            onClick={(e) => { e.stopPropagation(); handleAddClick(); }}
             aria-disabled={isAdded}
             aria-label={
               isAdded
