@@ -32,6 +32,8 @@ export const ProductCard = ({ product, onAddToCart, onOpen }) => {
           src={product.img}
           alt={product.name}
           className={styles.productImage}
+          width="300"
+          height="150"
           loading="lazy"
           decoding="async"
         />
