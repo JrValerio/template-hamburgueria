@@ -1,8 +1,20 @@
+import { useState, useRef, useEffect } from "react";
+import { MdCheck } from "react-icons/md";
 import styles from "./ProductCard.module.scss";
 
 export const ProductCard = ({ product, onAddToCart }) => {
+  const [isAdded, setIsAdded] = useState(false);
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutRef.current);
+  }, []);
+
   const handleAddClick = () => {
+    if (isAdded) return;
     onAddToCart(product);
+    setIsAdded(true);
+    timeoutRef.current = setTimeout(() => setIsAdded(false), 1500);
   };
 
   return (
@@ -24,11 +36,23 @@ export const ProductCard = ({ product, onAddToCart }) => {
             })}
           </p>
           <button
-            className={styles.addButton}
+            className={isAdded ? styles.addButtonAdded : styles.addButton}
             onClick={handleAddClick}
-            aria-label={`Adicionar ${product.name} ao carrinho`}
+            aria-disabled={isAdded}
+            aria-label={
+              isAdded
+                ? `${product.name} adicionado ao carrinho`
+                : `Adicionar ${product.name} ao carrinho`
+            }
           >
-            Adicionar
+            {isAdded ? (
+              <>
+                <MdCheck size={16} />
+                Adicionado
+              </>
+            ) : (
+              "Adicionar"
+            )}
           </button>
         </div>
       </div>
