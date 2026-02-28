@@ -33,6 +33,7 @@ export const HomePage = () => {
     <main>
       {/* ── Hero ── */}
       <section className={styles.hero} aria-label="Destaque">
+        <span className={styles.badge}>Delivery em até 30 min</span>
         <h1 className={styles.headline}>Burgers artesanais feitos pra você</h1>
         <p className={styles.sub}>
           Ingredientes frescos, sabor de verdade — entregues na sua porta.
