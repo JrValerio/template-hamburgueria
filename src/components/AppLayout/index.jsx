@@ -7,6 +7,7 @@ import { ScrollToTop } from "../ScrollToTop";
 import { CartModal } from "../CartModal";
 import { OfflineBanner } from "../OfflineBanner";
 import { ProductQuickViewModal } from "../ProductQuickViewModal";
+import { Toast } from "../Toast";
 import styles from "./AppLayout.module.scss";
 
 export function AppLayout() {
@@ -26,6 +27,13 @@ export function AppLayout() {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
+
+  const showToast = (message) => {
+    const id = Date.now();
+    setToastMessage({ id, message });
+    setTimeout(() => setToastMessage((t) => (t?.id === id ? null : t)), 3000);
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -66,6 +74,7 @@ export function AppLayout() {
       localStorage.setItem("cartList", JSON.stringify(next));
       return next;
     });
+    showToast(`${product.name} adicionado ao carrinho`);
   };
 
   const clearCart = () => {
@@ -122,6 +131,8 @@ export function AppLayout() {
           onClose={() => setSelectedProduct(null)}
         />
       )}
+
+      <Toast message={toastMessage?.message} />
     </div>
   );
 }
