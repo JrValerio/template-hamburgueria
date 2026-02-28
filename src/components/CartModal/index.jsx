@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClose, MdShoppingCart } from "react-icons/md";
 import { CartItemCard } from "./CartItemCard";
@@ -11,11 +11,24 @@ export const CartModal = ({
   onClearCart,
   onClose,
 }) => {
-  const modalRef = useRef();
+  const sidebarRef = useRef();
+  const [isVisible, setIsVisible] = useState(false);
   const [checkoutDone, setCheckoutDone] = useState(false);
 
-  useOutsideClick(modalRef, onClose);
-  useEscapePress(onClose);
+  // Trigger slide-in after mount (1 RAF frame to allow CSS transition)
+  useLayoutEffect(() => {
+    const id = requestAnimationFrame(() => setIsVisible(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  // Animate out then unmount
+  const handleClose = () => {
+    setIsVisible(false);
+    setTimeout(onClose, 250);
+  };
+
+  useOutsideClick(sidebarRef, handleClose);
+  useEscapePress(handleClose);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -52,7 +65,7 @@ export const CartModal = ({
     setCheckoutDone(true);
     setTimeout(() => {
       setCheckoutDone(false);
-      onClose();
+      handleClose();
     }, 1200);
   };
 
@@ -60,83 +73,84 @@ export const CartModal = ({
 
   return createPortal(
     <>
-      <div className={styles.modalBackdrop} />
       <div
+        className={`${styles.modalBackdrop} ${isVisible ? styles.backdropVisible : ""}`}
+      />
+      <div
+        ref={sidebarRef}
         role="dialog"
         aria-modal="true"
         aria-label="Carrinho de compras"
-        className={styles.cartModal}
+        className={`${styles.cartSidebar} ${isVisible ? styles.cartSidebarOpen : ""}`}
       >
-        <div className={styles.cartContent} ref={modalRef}>
-          <div className={styles.cartHeader}>
-            <h2 className={styles.cartTitle}>Carrinho de compras</h2>
-            <button
-              aria-label="Fechar carrinho"
-              title="Fechar"
-              className={styles.closeButton}
-              onClick={onClose}
-            >
-              <MdClose size={21} />
+        <div className={styles.cartHeader}>
+          <h2 className={styles.cartTitle}>Carrinho de compras</h2>
+          <button
+            aria-label="Fechar carrinho"
+            title="Fechar"
+            className={styles.closeButton}
+            onClick={handleClose}
+          >
+            <MdClose size={21} />
+          </button>
+        </div>
+
+        {isEmpty ? (
+          <div className={styles.emptyState}>
+            <MdShoppingCart size={48} className={styles.emptyIcon} />
+            <p className={styles.emptyText}>Seu carrinho está vazio</p>
+            <button className={styles.emptyCtaButton} onClick={handleClose}>
+              Ver cardápio
             </button>
           </div>
-
-          {isEmpty ? (
-            <div className={styles.emptyState}>
-              <MdShoppingCart size={48} className={styles.emptyIcon} />
-              <p className={styles.emptyText}>Seu carrinho está vazio</p>
-              <button className={styles.emptyCtaButton} onClick={onClose}>
-                Ver cardápio
+        ) : (
+          <>
+            <ul role="list" className={styles.cartItems}>
+              {cartList.map((product) => (
+                <CartItemCard
+                  key={product.id}
+                  product={product}
+                  onRemove={() => {
+                    setCartList((prev) => {
+                      const next = prev.filter((item) => item.id !== product.id);
+                      localStorage.setItem("cartList", JSON.stringify(next));
+                      return next;
+                    });
+                  }}
+                  onIncrement={onIncrement}
+                  onDecrement={onDecrement}
+                />
+              ))}
+            </ul>
+            <div className={styles.cartFooter}>
+              <div className={styles.cartTotal}>
+                <span className={styles.totalLabel}>Total</span>
+                <span className={styles.totalValue}>
+                  {total.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </span>
+              </div>
+              <button
+                className={styles.checkoutButton}
+                onClick={handleCheckout}
+                disabled={checkoutDone}
+              >
+                {checkoutDone ? "Em breve..." : "Finalizar pedido"}
+              </button>
+              <button
+                className={styles.clearButton}
+                onClick={() => {
+                  setCartList([]);
+                  onClearCart();
+                }}
+              >
+                Remover todos
               </button>
             </div>
-          ) : (
-            <>
-              <ul role="list" className={styles.cartItems}>
-                {cartList.map((product) => (
-                  <CartItemCard
-                    key={product.id}
-                    product={product}
-                    onRemove={() => {
-                      setCartList((prev) => {
-                        const next = prev.filter((item) => item.id !== product.id);
-                        localStorage.setItem("cartList", JSON.stringify(next));
-                        return next;
-                      });
-                    }}
-                    onIncrement={onIncrement}
-                    onDecrement={onDecrement}
-                  />
-                ))}
-              </ul>
-              <div className={styles.cartFooter}>
-                <div className={styles.cartTotal}>
-                  <span className={styles.totalLabel}>Total</span>
-                  <span className={styles.totalValue}>
-                    {total.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </span>
-                </div>
-                <button
-                  className={styles.checkoutButton}
-                  onClick={handleCheckout}
-                  disabled={checkoutDone}
-                >
-                  {checkoutDone ? "Em breve..." : "Finalizar pedido"}
-                </button>
-                <button
-                  className={styles.clearButton}
-                  onClick={() => {
-                    setCartList([]);
-                    onClearCart();
-                  }}
-                >
-                  Remover todos
-                </button>
-              </div>
-            </>
-          )}
-        </div>
+          </>
+        )}
       </div>
     </>,
     document.body
