@@ -12,31 +12,15 @@
   align-items: center;
 
   .container {
-    max-width: 100%;
-    width: 25.875rem;
+    width: 100%;
+    max-width: 70rem;
     height: 4.75rem;
     flex-shrink: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-
-    @media (min-width: 520px) {
-      max-width: 100%;
-      width: 28rem;
-      margin-inline: auto;
-    }
-
-    @media (min-width: 768px) {
-      max-width: 100%;
-      margin-inline: auto;
-    }
-
-    @media (min-width: 1024px) {
-      max-width: 100%;
-      width: 95%;
-      margin-inline: auto;
-    }
+    padding: 0 1.5rem;
+    margin-inline: auto;
   }
 
   .nav {
@@ -100,11 +84,6 @@
   .cartButton {
     position: relative;
     color: $color-text-muted;
-    font-family: "Font Awesome 5 Free";
-    font-size: 1.375rem;
-    font-style: normal;
-    font-weight: 900;
-    line-height: normal;
 
     .cartCount {
       position: absolute;
@@ -146,34 +125,6 @@
     }
   }
 
-  // ---- end .header nested rules ----
-
-  // @media (min-width: 520px) {
-  //   .container {
-  //     width: 58rem;
-  //     margin-inline: auto;
-  //     max-width: 100%;
-  //   margin-left: auto;
-  //   margin-right: auto;
-  //   }
-  // }
-
-  @media (min-width: 520px) {
-    width: 70rem;
-    margin-inline: auto;
-  }
-
-  @media (min-width: 768px) {
-    max-width: 100%;
-    width: 85rem;
-    margin-inline: auto;
-  }
-
-  @media (min-width: 1024px) {
-    max-width: 100%;
-    width: 100rem;
-    margin-inline: auto;
-  }
 }
 
 // ─── Drawer (portal — lives in document.body) ──────────────────────────────
