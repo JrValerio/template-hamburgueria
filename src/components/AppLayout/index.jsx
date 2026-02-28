@@ -28,6 +28,7 @@ export function AppLayout() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
+  const [isBannerDismissed, setIsBannerDismissed] = useState(false);
 
   const showToast = (message) => {
     const id = Date.now();
@@ -82,6 +83,11 @@ export function AppLayout() {
     localStorage.removeItem("cartList");
   };
 
+  // Reset dismiss when offline state turns on again (new outage)
+  useEffect(() => {
+    if (isOffline) setIsBannerDismissed(false);
+  }, [isOffline]);
+
   const { pathname } = useLocation();
   useEffect(() => {
     setIsCartVisible(false);
@@ -101,7 +107,9 @@ export function AppLayout() {
         onAddToCart={addToCart}
       />
 
-      {isOffline && <OfflineBanner />}
+      {isOffline && !isBannerDismissed && (
+        <OfflineBanner onDismiss={() => setIsBannerDismissed(true)} />
+      )}
 
       <Outlet
         context={{
