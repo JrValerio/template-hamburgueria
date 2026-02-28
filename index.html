@@ -22,6 +22,31 @@
     <meta name="twitter:title" content="BK Bold — Burgers Artesanais & Combos" />
     <meta name="twitter:description" content="Hambúrgueres artesanais e combos exclusivos." />
     <meta name="twitter:image" content="/assets/menu/burgers/burger-021.jpg" />
+
+    <!-- Structured Data — Restaurant schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "BK Bold",
+      "description": "Hambúrgueres artesanais, combos exclusivos e delivery rápido.",
+      "servesCuisine": "Hambúrguer Artesanal",
+      "priceRange": "$$",
+      "hasMenu": "/cardapio",
+      "offers": {
+        "@type": "Offer",
+        "description": "Delivery disponível",
+        "areaServed": {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "addressCountry": "BR"
+          }
+        }
+      },
+      "sameAs": []
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
