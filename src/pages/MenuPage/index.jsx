@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useSearchParams } from "react-router-dom";
 import { CATEGORIES } from "../../data/categories";
 import { ProductList } from "../../components/ProductsPage/ProductList";
 import styles from "./MenuPage.module.scss";
 
 export const MenuPage = () => {
-  const { productList, addToCart, searchTerm, isLoading, openQuickView } = useOutletContext();
+  const { productList, addToCart, isLoading, openQuickView } = useOutletContext();
+  const [params, setParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState(null);
 
-  const filteredProducts = productList.filter((p) =>
-    (p.name ?? "").toLowerCase().includes(searchTerm)
-  );
+  const q = params.get("q")?.trim() ?? "";
+  const isSearching = q.length > 0;
+
+  const filteredProducts = isSearching
+    ? productList.filter((p) => {
+        const hay = `${p.name ?? ""} ${p.category ?? ""}`.toLowerCase();
+        return hay.includes(q.toLowerCase());
+      })
+    : productList;
 
   const isEmpty = !isLoading && filteredProducts.length === 0;
-  const isSearching = searchTerm.length > 0;
+
+  const clearSearch = () => {
+    params.delete("q");
+    setParams(params, { replace: true });
+  };
 
   // Track active section via IntersectionObserver
   useEffect(() => {
@@ -61,6 +72,17 @@ export const MenuPage = () => {
             </a>
           ))}
         </nav>
+      )}
+
+      {isSearching && (
+        <div className={styles.resultsHeader}>
+          <p className={styles.resultsTitle}>
+            Resultados para: <strong>"{q}"</strong>
+          </p>
+          <button className={styles.clearButton} onClick={clearSearch}>
+            Limpar busca
+          </button>
+        </div>
       )}
 
       {isSearching || isLoading ? (

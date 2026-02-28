@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
+import { useNavigate } from "react-router-dom";
 import { MdClose, MdCheckCircle } from "react-icons/md";
 import styles from "./SearchModal.module.scss";
 import { useEscapePress, useOutsideClick } from "../../../services/hooks";
 
 export const SearchModal = ({ onClose, onSearchSubmit, productList = [], onAddToCart = () => {} }) => {
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -50,11 +52,15 @@ export const SearchModal = ({ onClose, onSearchSubmit, productList = [], onAddTo
     setTimeout(() => setAddedId(null), 1500);
   };
 
+  const handleSubmit = () => {
+    const term = searchValue.trim();
+    if (!term) return;
+    navigate(`/cardapio?q=${encodeURIComponent(term)}`);
+    onClose();
+  };
+
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && searchResults.length > 0) {
-      onSearchSubmit?.(searchValue);
-      handleAddToCart(searchResults[0]);
-    }
+    if (e.key === "Enter") handleSubmit();
   };
 
   return createPortal(
