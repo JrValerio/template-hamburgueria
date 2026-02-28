@@ -8,9 +8,24 @@ export function OfferCard({ offer, onAddToCart }) {
 
   return (
     <article className={styles.card}>
-      <span className={styles.badge} aria-label={`${discount}% de desconto`}>
-        -{discount}%
-      </span>
+      {offer.img && (
+        <div className={styles.imageWrapper}>
+          <img
+            src={offer.img}
+            alt={offer.name}
+            className={styles.image}
+            loading="lazy"
+          />
+          <span className={styles.badge} aria-label={`${discount}% de desconto`}>
+            -{discount}%
+          </span>
+        </div>
+      )}
+      {!offer.img && (
+        <span className={styles.badge} aria-label={`${discount}% de desconto`}>
+          -{discount}%
+        </span>
+      )}
 
       <div className={styles.info}>
         <h2 className={styles.name}>{offer.name}</h2>
