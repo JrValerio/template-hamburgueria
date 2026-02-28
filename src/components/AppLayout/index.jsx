@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { fetchProducts } from "../../services/api";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
+import { ScrollToTop } from "../ScrollToTop";
 import { CartModal } from "../CartModal";
 import { OfflineBanner } from "../OfflineBanner";
 import { ProductQuickViewModal } from "../ProductQuickViewModal";
@@ -76,6 +77,7 @@ export function AppLayout() {
 
   return (
     <div className={styles.appShell}>
+      <ScrollToTop />
       <Header
         cartQuantity={cartQuantity}
         onSearchSubmit={(term) => setSearchTerm(term.toLowerCase())}
