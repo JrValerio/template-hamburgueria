@@ -66,7 +66,7 @@ export const Header = ({ cartQuantity, onSearchSubmit, onCartClick, productList,
     <header className={styles.header}>
       <div className={styles.container}>
         <NavLink to="/" aria-label="Início">
-          <img src={Logo} alt="Logo Kenzie Burguer" className={styles.logo} loading="eager" decoding="async" />
+          <img src={Logo} alt="Logo Kenzie Burguer" className={styles.logo} width="150" height="23" loading="eager" decoding="async" />
         </NavLink>
 
         <nav className={styles.nav} aria-label="Navegação principal">
@@ -130,7 +130,7 @@ export const Header = ({ cartQuantity, onSearchSubmit, onCartClick, productList,
               aria-label="Menu de navegação mobile"
             >
               <div className={styles.drawerHeader}>
-                <img src={Logo} alt="Logo Kenzie Burguer" className={styles.drawerLogo} loading="lazy" decoding="async" />
+                <img src={Logo} alt="Logo Kenzie Burguer" className={styles.drawerLogo} width="150" height="23" loading="lazy" decoding="async" />
                 <button
                   ref={drawerCloseRef}
                   className={styles.drawerClose}

@@ -11,6 +11,8 @@ export const CartItemCard = ({ product, onRemove, onIncrement, onDecrement }) =>
           src={product.img}
           alt={product.name}
           className={styles.itemImg}
+          width="56"
+          height="56"
           loading="lazy"
           decoding="async"
         />

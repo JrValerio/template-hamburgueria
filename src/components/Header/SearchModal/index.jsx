@@ -94,6 +94,8 @@ export const SearchModal = ({ onClose, onSearchSubmit, productList = [], onAddTo
                     src={product.img}
                     alt={product.name}
                     className={styles.resultImg}
+                    width="48"
+                    height="48"
                     loading="lazy"
                     decoding="async"
                   />
