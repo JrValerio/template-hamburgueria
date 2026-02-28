@@ -22,11 +22,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 
     &:hover {
       border-color: $color-primary;
-      box-shadow: 0 4px 16px rgba(39, 174, 96, 0.15);
+      box-shadow: 0 6px 20px rgba(39, 174, 96, 0.2);
+      transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba($color-primary, 0.65);
+      outline-offset: 2px;
     }
   }
 
@@ -64,6 +70,11 @@
     border-radius: 8px;
     margin-top: auto;
     width: 100%;
+
+    &:focus-visible {
+      outline: 2px solid rgba($color-primary, 0.65);
+      outline-offset: 2px;
+    }
   }
 
   .addButtonAdded {
