@@ -48,6 +48,13 @@
   }
 }
 
+.categoryChipActive {
+  color: $color-primary;
+  border-color: $color-primary;
+  background-color: rgba(39, 174, 96, 0.1);
+  pointer-events: none;
+}
+
 // ─── Sections ──────────────────────────────────────────────────────────────
 
 .section {
