@@ -54,6 +54,8 @@ export const HomePage = () => {
           alt="Burger artesanal em destaque"
           className={styles.heroImage}
           loading="eager"
+          fetchpriority="high"
+          decoding="async"
         />
       </section>
 

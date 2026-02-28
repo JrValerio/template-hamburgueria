@@ -33,6 +33,7 @@ export const ProductCard = ({ product, onAddToCart, onOpen }) => {
           alt={product.name}
           className={styles.productImage}
           loading="lazy"
+          decoding="async"
         />
         <div className={styles.productDetails}>
           <h3 className={styles.productName}>{product.name}</h3>

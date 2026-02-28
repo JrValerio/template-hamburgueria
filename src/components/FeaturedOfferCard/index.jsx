@@ -15,6 +15,7 @@ export function FeaturedOfferCard({ offer, onAddToCart }) {
             alt={offer.name}
             className={styles.image}
             loading="lazy"
+            decoding="async"
           />
           <span className={styles.badge} aria-label={`${discount}% de desconto`}>
             -{discount}%

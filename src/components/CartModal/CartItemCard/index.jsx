@@ -12,6 +12,7 @@ export const CartItemCard = ({ product, onRemove, onIncrement, onDecrement }) =>
           alt={product.name}
           className={styles.itemImg}
           loading="lazy"
+          decoding="async"
         />
       ) : (
         <div className={styles.itemImg} role="presentation" aria-hidden="true" />
