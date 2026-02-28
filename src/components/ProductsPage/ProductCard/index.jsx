@@ -22,6 +22,10 @@ export const ProductCard = ({ product, onAddToCart, onOpen }) => {
       <div
         className={styles.productCard}
         onClick={onOpen ? () => onOpen(product) : undefined}
+        onKeyDown={onOpen ? (e) => { if (e.currentTarget !== e.target) return; if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(product); } } : undefined}
+        tabIndex={onOpen ? 0 : undefined}
+        role={onOpen ? "button" : undefined}
+        aria-label={onOpen ? `Abrir detalhes de ${product.name}` : undefined}
         style={onOpen ? { cursor: "pointer" } : undefined}
       >
         <img
