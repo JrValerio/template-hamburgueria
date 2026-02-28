@@ -6,12 +6,16 @@ export const CartItemCard = ({ product, onRemove, onIncrement, onDecrement }) =>
 
   return (
     <li className={styles.cartItemCard}>
-      <img
-        src={product.img}
-        alt={product.name}
-        className={styles.itemImg}
-        loading="lazy"
-      />
+      {product.img ? (
+        <img
+          src={product.img}
+          alt={product.name}
+          className={styles.itemImg}
+          loading="lazy"
+        />
+      ) : (
+        <div className={styles.itemImg} role="presentation" aria-hidden="true" />
+      )}
       <div className={styles.itemDetails}>
         <span className={styles.itemName}>{product.name}</span>
         <span className={styles.itemUnitPrice}>

@@ -1,9 +1,10 @@
 import styles from "./OfferCard.module.scss";
 
 export function OfferCard({ offer, onAddToCart }) {
-  const discount = Math.round(
-    ((offer.originalPrice - offer.price) / offer.originalPrice) * 100
-  );
+  const discount =
+    offer.originalPrice > 0
+      ? Math.round(((offer.originalPrice - offer.price) / offer.originalPrice) * 100)
+      : 0;
 
   return (
     <article className={styles.card}>
