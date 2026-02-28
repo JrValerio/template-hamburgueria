@@ -53,11 +53,13 @@ export const CartModal = ({
 
   const onDecrement = (productId) => {
     setCartList((prev) => {
-      const next = prev.map((item) =>
-        item.id === productId && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      );
+      const next = prev
+        .map((item) => {
+          if (item.id !== productId) return item;
+          if (item.quantity <= 1) return null;
+          return { ...item, quantity: item.quantity - 1 };
+        })
+        .filter(Boolean);
       localStorage.setItem("cartList", JSON.stringify(next));
       return next;
     });
