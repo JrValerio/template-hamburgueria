@@ -81,7 +81,7 @@ export const OffersPage = () => {
       <h2 className={styles.regularHeading}>Mais combos</h2>
 
       <ul className={styles.grid} role="list">
-        {OFFERS.map((offer) => (
+        {OFFERS.filter((o) => o.id !== OFFER_FEATURED.id).map((offer) => (
           <li key={offer.id}>
             <OfferCard offer={offer} onAddToCart={addToCart} />
           </li>
