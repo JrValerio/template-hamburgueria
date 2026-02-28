@@ -3,29 +3,37 @@
 
 .tile {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 1rem 1.125rem;
-  background: $color-surface;
+  padding: 1.25rem;
+  min-height: 110px;
+  background: linear-gradient(
+    135deg,
+    $color-surface 0%,
+    $color-surface-2 100%
+  );
   border: 1px solid $color-border;
-  border-left: 3px solid $color-primary;
+  border-top: 2px solid $color-primary;
   border-radius: 8px;
   text-decoration: none;
-  transition: background-color 0.15s, box-shadow 0.15s;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 
   &:hover {
-    background-color: $color-surface-2;
-    box-shadow: 0 2px 12px rgba(39, 174, 96, 0.12);
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba($color-primary, 0.15);
   }
 }
 
 .label {
-  font-size: $font-size-body;
-  font-weight: $font-weight-semibold;
+  font-size: $font-size-h3;
+  font-weight: $font-weight-bold;
   color: $color-text;
+  overflow-wrap: break-word;
 }
 
 .arrow {
   color: $color-primary;
-  flex-shrink: 0;
+  align-self: flex-end;
 }
