@@ -34,19 +34,27 @@ export const HomePage = () => {
     <main>
       {/* ── Hero ── */}
       <section className={styles.hero} aria-label="Destaque">
-        <span className={styles.badge}>Delivery em até 30 min</span>
-        <h1 className={styles.headline}>Burgers artesanais feitos pra você</h1>
-        <p className={styles.sub}>
-          Ingredientes frescos, sabor de verdade — entregues na sua porta.
-        </p>
-        <div className={styles.actions}>
-          <Link to="/cardapio" className={styles.ctaPrimary}>
-            Ver cardápio
-          </Link>
-          <Link to="/ofertas" className={styles.ctaSecondary}>
-            Ver ofertas
-          </Link>
+        <div className={styles.heroContent}>
+          <span className={styles.badge}>Delivery em até 30 min</span>
+          <h1 className={styles.headline}>Burgers artesanais feitos pra você</h1>
+          <p className={styles.sub}>
+            Ingredientes frescos, sabor de verdade — entregues na sua porta.
+          </p>
+          <div className={styles.actions}>
+            <Link to="/cardapio" className={styles.ctaPrimary}>
+              Ver cardápio
+            </Link>
+            <Link to="/ofertas" className={styles.ctaSecondary}>
+              Ver ofertas
+            </Link>
+          </div>
         </div>
+        <img
+          src="/assets/menu/burgers/burger-021.jpg"
+          alt="Burger artesanal em destaque"
+          className={styles.heroImage}
+          loading="eager"
+        />
       </section>
 
       {/* ── Categorias ── */}
