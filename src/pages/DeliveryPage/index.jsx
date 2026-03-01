@@ -65,6 +65,12 @@ export const DeliveryPage = () => {
               <span className={styles.listValue}>Cartão ou Pix</span>
             </li>
           </ul>
+          <div className={styles.ctaWrap}>
+            <Link to="/cardapio" className={styles.cta}>
+              Pedir agora
+            </Link>
+            <p className={styles.microCopy}>Você será levado ao cardápio</p>
+          </div>
         </section>
 
         <section
@@ -93,10 +99,6 @@ export const DeliveryPage = () => {
           </p>
         </section>
       </div>
-
-      <Link to="/cardapio" className={styles.cta}>
-        Pedir agora
-      </Link>
     </main>
   );
 };
