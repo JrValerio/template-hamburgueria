@@ -7,22 +7,22 @@ import styles from "./CartModal.module.scss";
 
 export const CartModal = ({
   cartList,
-  setCartList,
   onClearCart,
   onClose,
+  onRemoveItem,
+  onIncrementItem,
+  onDecrementItem,
 }) => {
   const sidebarRef = useRef();
   const closeTimeoutRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [checkoutDone, setCheckoutDone] = useState(false);
 
-  // Trigger slide-in after mount (1 RAF frame to allow CSS transition)
   useLayoutEffect(() => {
     const id = requestAnimationFrame(() => setIsVisible(true));
     return () => cancelAnimationFrame(id);
   }, []);
 
-  // Animate out then unmount — ref prevents stale timeout closing a new instance
   const handleClose = () => {
     setIsVisible(false);
     closeTimeoutRef.current = setTimeout(onClose, 250);
@@ -40,30 +40,6 @@ export const CartModal = ({
   }, []);
 
   const total = cartList.reduce((acc, p) => acc + p.quantity * p.price, 0);
-
-  const onIncrement = (productId) => {
-    setCartList((prev) => {
-      const next = prev.map((item) =>
-        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
-      );
-      localStorage.setItem("cartList", JSON.stringify(next));
-      return next;
-    });
-  };
-
-  const onDecrement = (productId) => {
-    setCartList((prev) => {
-      const next = prev
-        .map((item) => {
-          if (item.id !== productId) return item;
-          if (item.quantity <= 1) return null;
-          return { ...item, quantity: item.quantity - 1 };
-        })
-        .filter(Boolean);
-      localStorage.setItem("cartList", JSON.stringify(next));
-      return next;
-    });
-  };
 
   const handleCheckout = () => {
     setCheckoutDone(true);
@@ -114,15 +90,9 @@ export const CartModal = ({
                 <CartItemCard
                   key={product.id}
                   product={product}
-                  onRemove={() => {
-                    setCartList((prev) => {
-                      const next = prev.filter((item) => item.id !== product.id);
-                      localStorage.setItem("cartList", JSON.stringify(next));
-                      return next;
-                    });
-                  }}
-                  onIncrement={onIncrement}
-                  onDecrement={onDecrement}
+                  onRemove={() => onRemoveItem(product.id)}
+                  onIncrement={() => onIncrementItem(product.id)}
+                  onDecrement={() => onDecrementItem(product.id)}
                 />
               ))}
             </ul>
@@ -145,10 +115,7 @@ export const CartModal = ({
               </button>
               <button
                 className={styles.clearButton}
-                onClick={() => {
-                  setCartList([]);
-                  onClearCart();
-                }}
+                onClick={onClearCart}
               >
                 Remover todos
               </button>
