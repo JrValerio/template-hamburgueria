@@ -1,34 +1,50 @@
-import { ProductCard } from "../ProductCard/index";
+import { useEffect, useState } from "react";
+import { fetchProducts } from "../../../services/api";
+import { ProductCard } from "../ProductCard";
 import { SkeletonCard } from "../SkeletonCard";
 import styles from "./ProductList.module.scss";
 
-const SKELETON_COUNT = 6;
+export const ProductList = ({ onAddToCart, onOpenProduct, category }) => {
+  const [productList, setProductList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-export const ProductList = ({ productList, onAddToCart, onOpenProduct, isLoading }) => {
+  useEffect(() => {
+    const load = async () => {
+      setIsLoading(true);
+      try {
+        const { products } = await fetchProducts({ category });
+        setProductList(products);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    load();
+  }, [category]);
+
   if (isLoading) {
     return (
-      <div className={styles.productList} aria-busy="true">
-        {Array.from({ length: SKELETON_COUNT }, (_, i) => (
+      <ul className={styles.productList}>
+        {Array.from({ length: 4 }).map((_, i) => (
           <SkeletonCard key={i} />
         ))}
-      </div>
+      </ul>
     );
   }
 
   if (productList.length === 0) {
-    return <p>Não há produtos disponíveis.</p>;
+    return <p>Nenhum produto encontrado nesta categoria.</p>;
   }
 
   return (
-    <div className={styles.productList}>
+    <ul className={styles.productList}>
       {productList.map((product) => (
         <ProductCard
           key={product.id}
           product={product}
           onAddToCart={onAddToCart}
-          onOpen={onOpenProduct}
+          onOpenProduct={onOpenProduct}
         />
       ))}
-    </div>
+    </ul>
   );
 };

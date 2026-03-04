@@ -20,18 +20,22 @@ export const api = axios.create({
  *   on the returned array so callers can show a degraded-state indicator.
  */
 /**
+ * @param {{ category?: string }} [options]
  * @returns {{ products: Array, fromFallback: boolean }}
  */
-export async function fetchProducts() {
+export async function fetchProducts({ category } = {}) {
+  const filter = (p) => !category || p.category === category;
+
   if (import.meta.env.VITE_USE_STATIC_FALLBACK === "true") {
-    return { products: [...fallbackProducts], fromFallback: true };
+    return { products: fallbackProducts.filter(filter), fromFallback: true };
   }
 
   const MAX_ATTEMPTS = 2;
+  const url = category ? `/products?category=${category}` : "/products";
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
-      const { data } = await api.get("/products");
+      const { data } = await api.get(url);
       return { products: data, fromFallback: false };
     } catch (err) {
       if (attempt < MAX_ATTEMPTS) {
@@ -41,7 +45,10 @@ export async function fetchProducts() {
           `[api] fetchProducts: remote unreachable after ${MAX_ATTEMPTS} attempts — using local fallback.`,
           err?.message
         );
-        return { products: [...fallbackProducts], fromFallback: true };
+        return {
+          products: fallbackProducts.filter(filter),
+          fromFallback: true,
+        };
       }
     }
   }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { fetchProducts } from "../../services/api";
 import { useCart } from "../../services/hooks";
 import { Header } from "../Header";
@@ -13,23 +13,21 @@ import styles from "./AppLayout.module.scss";
 
 export function AppLayout() {
   const [productList, setProductList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
-
-  const {
-    cartList,
-    addToCart: addToCartHook,
-    clearCart,
-    removeFromCart,
-    incrementQuantity,
-    decrementQuantity,
-  } = useCart();
-
+  const { cartList, addToCart: addToCartHook, ...cartActions } = useCart();
   const [isCartVisible, setIsCartVisible] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
   const [isBannerDismissed, setIsBannerDismissed] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const load = async () => {
+      const { products } = await fetchProducts();
+      setProductList(products);
+    };
+    load();
+  }, []);
 
   const showToast = (message) => {
     const id = Date.now();
@@ -43,18 +41,17 @@ export function AppLayout() {
   };
 
   useEffect(() => {
-    const load = async () => {
-      setIsLoading(true);
+    // A simple polling to detect online/offline status
+    const interval = setInterval(async () => {
       try {
-        const { products, fromFallback } = await fetchProducts();
-        setProductList(products);
-        setIsOffline(fromFallback);
-      } finally {
-        setIsLoading(false);
+        await fetch("/");
+        if (isOffline) setIsOffline(false);
+      } catch (e) {
+        if (!isOffline) setIsOffline(true);
       }
-    };
-    load();
-  }, []);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isOffline]);
 
   useEffect(() => {
     if (isOffline) setIsBannerDismissed(false);
@@ -66,6 +63,11 @@ export function AppLayout() {
     setSelectedProduct(null);
   }, [pathname]);
 
+  const handleSearch = (term) => {
+    const params = new URLSearchParams({ q: term });
+    navigate(`/menu?${params.toString()}`);
+  };
+
   const cartQuantity = cartList.reduce((acc, i) => acc + i.quantity, 0);
 
   return (
@@ -73,23 +75,19 @@ export function AppLayout() {
       <ScrollToTop />
       <Header
         cartQuantity={cartQuantity}
-        onSearchSubmit={(term) => setSearchTerm(term.toLowerCase())}
+        onSearchSubmit={handleSearch}
         onCartClick={() => setIsCartVisible((v) => !v)}
         productList={productList}
         onAddToCart={addToCart}
       />
 
-      {isOffline && !isBannerDismissed && (
-        <OfflineBanner onDismiss={() => setIsBannerDismissed(true)} />
-      )}
+      {isOffline && !isBannerDismissed && <OfflineBanner onDismiss={() => setIsBannerDismissed(true)} />}
 
       <Outlet
         context={{
-          productList,
           addToCart,
-          searchTerm,
-          isLoading,
           openQuickView: setSelectedProduct,
+          isOffline,
         }}
       />
 
@@ -99,10 +97,10 @@ export function AppLayout() {
         <CartModal
           cartList={cartList}
           onClose={() => setIsCartVisible(false)}
-          onClearCart={clearCart}
-          onRemoveItem={removeFromCart}
-          onIncrementItem={incrementQuantity}
-          onDecrementItem={decrementQuantity}
+          onClearCart={cartActions.clearCart}
+          onRemoveItem={cartActions.removeFromCart}
+          onIncrementItem={cartActions.incrementQuantity}
+          onDecrementItem={cartActions.decrementQuantity}
         />
       )}
 
