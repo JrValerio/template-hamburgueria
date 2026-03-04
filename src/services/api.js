@@ -13,17 +13,10 @@ export const api = axios.create({
 /**
  * Fetch the product catalog from the remote API.
  *
- * Behavior:
- * - If VITE_USE_STATIC_FALLBACK=true, returns the local seed immediately.
- * - Otherwise attempts up to 2 requests with a 1-second gap between them.
- * - On all failures returns the local seed and sets `_fromFallback = true`
- *   on the returned array so callers can show a degraded-state indicator.
+ * @param {{ category?: string, signal?: AbortSignal }} [options] - Options for the fetch.
+ * @returns {Promise<{ products: Array, fromFallback: boolean }>}
  */
-/**
- * @param {{ category?: string }} [options]
- * @returns {{ products: Array, fromFallback: boolean }}
- */
-export async function fetchProducts({ category } = {}) {
+export async function fetchProducts({ category, signal } = {}) {
   const filter = (p) => !category || p.category === category;
 
   if (import.meta.env.VITE_USE_STATIC_FALLBACK === "true") {
@@ -35,12 +28,16 @@ export async function fetchProducts({ category } = {}) {
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
-      const { data } = await api.get(url);
+      const { data } = await api.get(url, { signal });
       return { products: data, fromFallback: false };
     } catch (err) {
-      if (attempt < MAX_ATTEMPTS) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      } else {
+      // If the request was cancelled, re-throw the error so the calling component can handle it.
+      if (axios.isCancel(err)) {
+        throw err;
+      }
+
+      // If it's the last attempt, log a warning and return the fallback data.
+      if (attempt >= MAX_ATTEMPTS) {
         console.warn(
           `[api] fetchProducts: remote unreachable after ${MAX_ATTEMPTS} attempts — using local fallback.`,
           err?.message
@@ -50,6 +47,12 @@ export async function fetchProducts({ category } = {}) {
           fromFallback: true,
         };
       }
+      
+      // If it's not the last attempt, wait for a short period before trying again.
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
+  
+  // This part should be unreachable, but as a safeguard, return fallback.
+  return { products: fallbackProducts.filter(filter), fromFallback: true };
 }
